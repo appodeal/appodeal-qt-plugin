@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<manifest package="com.example.kian.apptest" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0" android:versionCode="1" android:installLocation="auto">
+    <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="RealTest">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="com.example.kian.apptest.AppodealActivity" android:label="RealTest" android:screenOrientation="unspecified" android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+            <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
+            <meta-data android:name="android.app.repository" android:value="default"/>
+            <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
+            <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
+            <!-- Deploy Qt libs as part of package -->
+            <meta-data android:name="android.app.bundle_local_qt_libs" android:value="-- %%BUNDLE_LOCAL_QT_LIBS%% --"/>
+            <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
+            <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/>
+            <!-- Run with local libs -->
+            <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
+            <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
+            <meta-data android:name="android.app.load_local_libs" android:value="-- %%INSERT_LOCAL_LIBS%% --"/>
+            <meta-data android:name="android.app.load_local_jars" android:value="-- %%INSERT_LOCAL_JARS%% --"/>
+            <meta-data android:name="android.app.static_init_classes" android:value="-- %%INSERT_INIT_CLASSES%% --"/>
+            <!--  Messages maps -->
+            <meta-data android:value="@string/ministro_not_found_msg" android:name="android.app.ministro_not_found_msg"/>
+            <meta-data android:value="@string/ministro_needed_msg" android:name="android.app.ministro_needed_msg"/>
+            <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
+            <!--  Messages maps -->
+
+            <!-- Splash screen -->
+            <!--
+            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/logo"/>
+            -->
+            <!-- Splash screen -->
+
+            <!-- Background running -->
+            <!-- Warning: changing this value to true may cause unexpected crashes if the
+                          application still try to draw after
+                          "applicationStateChanged(Qt::ApplicationSuspended)"
+                          signal is sent! -->
+            <meta-data android:name="android.app.background_running" android:value="false"/>
+            <!-- Background running -->
+        </activity>
+
+
+              <meta-data android:name="com.appodeal.framework" android:value="android"/>
+              <activity android:name="com.appodeal.ads.InterstitialActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.appodeal.ads.VideoActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.appodeal.ads.LoaderActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+
+              <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:theme="@android:style/Theme.Translucent" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.chartboost.sdk.CBImpressionActivity" android:theme="@android:style/Theme.Translucent" android:screenOrientation="locked" android:excludeFromRecents="true" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" android:theme="@android:style/Theme.Translucent" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.Translucent" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="org.nexage.sourcekit.mraid.MRAIDBrowser" android:configChanges="orientation|keyboard|keyboardHidden|screenSize" android:theme="@android:style/Theme.Translucent" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+                      <activity android:name="ru.mail.android.mytarget.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="org.nexage.sourcekit.vast.activity.VASTActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <!--suppress AndroidDomInspection -->
+              <activity android:name="com.facebook.ads.InterstitialActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.unity3d.ads.android.view.UnityAdsFullscreenActivity" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="true" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.jirbo.adcolony.AdColonyOverlay" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.jirbo.adcolony.AdColonyFullscreen" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.jirbo.adcolony.AdColonyBrowser" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+
+              <activity android:name="com.vungle.publisher.FullScreenAdActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.startapp.android.publish.list3d.List3DActivity" android:theme="@android:style/Theme" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <!--suppress AndroidDomInspection -->
+              <activity android:name="com.startapp.android.publish.OverlayActivity" android:theme="@android:style/Theme.Translucent" android:configChanges="orientation|keyboardHidden|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <!--suppress AndroidDomInspection -->
+              <activity android:name="com.startapp.android.publish.FullScreenActivity" android:theme="@android:style/Theme" android:configChanges="orientation|keyboardHidden|screenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <service android:name="com.yandex.metrica.MetricaService" android:enabled="true" android:exported="true" android:process=":Metrica">
+                <intent-filter>
+                  <category android:name="android.intent.category.DEFAULT"/>
+                  <action android:name="com.yandex.metrica.IMetricaService"/>
+                  <data android:scheme="metrica"/>
+                </intent-filter>
+                <meta-data android:name="metrica:api:level" android:value="32"/>
+              </service>
+              <receiver android:name="com.yandex.metrica.MetricaEventHandler" android:enabled="true" android:exported="true">
+                <intent-filter>
+                  <action android:name="com.android.vending.INSTALL_REFERRER"/>
+                </intent-filter>
+              </receiver>
+              <!--suppress AndroidDomInspection -->
+              <activity android:name="com.yandex.metrica.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <activity android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:hardwareAccelerated="true" android:label="RealTest">
+            <meta-data android:name="android.app.lib_name" android:value="RealTest"/>
+        </activity>
+              <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true">
+                <intent-filter>
+                  <action android:name="com.inmobi.share.id"/>
+                </intent-filter>
+              </receiver>
+              <service android:enabled="true" android:name="com.inmobi.signals.activityrecognition.ActivityRecognitionManager"/>
+
+    </application>
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="22"/>
+    <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
+
+    <!-- The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
+         Remove the comment if you do not require these default permissions. -->
+    <!-- %%INSERT_PERMISSIONS -->
+
+    <!-- The following comment will be replaced upon deployment with default features based on the dependencies of the application.
+         Remove the comment if you do not require these default features. -->
+    <!-- %%INSERT_FEATURES -->
+
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+</manifest>
