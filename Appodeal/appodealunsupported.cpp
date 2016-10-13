@@ -4,26 +4,26 @@ AppodealUnsupported::AppodealUnsupported()
 {
 }
 
-void AppodealUnsupported::Initialize(const QString &appKey, const int &adType){
+void AppodealUnsupported::initialize(const QString &appKey, const int &adType){
     //Hide unused parameter warning
     (void)appKey; (void)adType;
     qInfo("Appodeal disabled");
 }
-bool AppodealUnsupported::Show(const int &adType){
+bool AppodealUnsupported::show(const int &adType){
     (void)adType;
     qInfo("Appodeal disabled");
     return false;
 }
-bool AppodealUnsupported::Show(const int &adType, const QString &placement){
+bool AppodealUnsupported::show(const int &adType, const QString &placement){
     (void)adType; (void)placement;
     qInfo("Appodeal disabled");
     return false;
 }
-void AppodealUnsupported::Hide(const int &adType){
+void AppodealUnsupported::hide(const int &adType){
     (void)adType;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::SetTesting(const bool &flag){
+void AppodealUnsupported::setTesting(const bool &flag){
     (void)flag;
     qInfo("Appodeal disabled");
 }

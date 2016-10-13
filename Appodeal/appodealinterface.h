@@ -11,11 +11,11 @@
 class AppodealInterface
 {
 public:
-    virtual void Initialize (const QString &appKey, const int &adType) = 0;
-    virtual bool Show (const int &adType) = 0;
-    virtual bool Show (const int &adType, const QString &placement) = 0;
-    virtual void Hide (const int &adType) = 0;
-    virtual void SetTesting(const bool &flag) = 0;
+    virtual void initialize (const QString &appKey, const int &adType) = 0;
+    virtual bool show (const int &adType) = 0;
+    virtual bool show (const int &adType, const QString &placement) = 0;
+    virtual void hide (const int &adType) = 0;
+    virtual void setTesting(const bool &flag) = 0;
     virtual void setLogging (const bool &flag) = 0;
     virtual bool isLoaded (const int &adType) = 0;
     virtual bool isPrecache (const int &adType) = 0;

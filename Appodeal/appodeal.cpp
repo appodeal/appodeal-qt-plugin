@@ -20,8 +20,10 @@ const int Appodeal::ALL                 = 1023;
 AppodealInterface* Appodeal::getInstance(){
     if(!Appodeal::appodeal){
 #ifdef ANDROID
+        qDebug("Android appodeal initialized");
         appodeal = new AppodealAndroid();
 #else
+        qDebug("Unsupported appodeal initialized");
         Appodeal::appodeal = new AppodealUnsupported();
 #endif
     }
@@ -31,26 +33,27 @@ AppodealInterface* Appodeal::getInstance(){
 void Appodeal::clear()
 {
     if(appodeal){
+        qDebug("Appodeal destroyed");
         delete appodeal;
     }
 }
 
-void Appodeal::Initialize (const QString &appKey, const int &adType){
-    Appodeal::getInstance()->Initialize(appKey, adType);
+void Appodeal::initialize (const QString &appKey, const int &adType){
+    Appodeal::getInstance()->initialize(appKey, adType);
 }
-bool Appodeal::Show (const int &adType){
-    return Appodeal::getInstance()->Show(adType);
-}
-
-bool Appodeal::Show (const int &adType, const QString &placement){
-    return Appodeal::getInstance()->Show(adType, placement);
+bool Appodeal::show (const int &adType){
+    return Appodeal::getInstance()->show(adType);
 }
 
-void Appodeal::Hide (const int &adType){
-    Appodeal::getInstance()->Hide(adType);
+bool Appodeal::show (const int &adType, const QString &placement){
+    return Appodeal::getInstance()->show(adType, placement);
 }
-void Appodeal::SetTesting(const bool &flag){
-    Appodeal::getInstance()->SetTesting(flag);
+
+void Appodeal::hide (const int &adType){
+    Appodeal::getInstance()->hide(adType);
+}
+void Appodeal::setTesting(const bool &flag){
+    Appodeal::getInstance()->setTesting(flag);
 }
 void Appodeal::setLogging (const bool &flag){
     Appodeal::getInstance()->setLogging(flag);

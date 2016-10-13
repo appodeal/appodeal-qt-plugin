@@ -13,11 +13,11 @@ class AppodealAndroid: public AppodealInterface, public QObject
 public:
     AppodealAndroid();
     ~AppodealAndroid();
-    virtual void Initialize (const QString &appKey, const int &adType);
-    virtual bool Show (const int &adType);
-    virtual bool Show (const int &adType, const QString &placement);
-    virtual void Hide (const int &adType);
-    virtual void SetTesting(const bool &flag);
+    virtual void initialize (const QString &appKey, const int &adType);
+    virtual bool show (const int &adType);
+    virtual bool show (const int &adType, const QString &placement);
+    virtual void hide (const int &adType);
+    virtual void setTesting(const bool &flag);
     virtual void setLogging (const bool &flag);
     virtual bool isLoaded (const int &adType);
     virtual bool isPrecache (const int &adType);

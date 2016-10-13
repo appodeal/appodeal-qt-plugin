@@ -30,7 +30,7 @@ void MainWindow::on_initializeButton_clicked()
     bool autoCache = ui->autoCache->isChecked();
 
     Appodeal::setAutoCache(adTypes, autoCache);
-    //Appodeal::SetTesting(true);
+    //Appodeal::setTesting(true);
     Appodeal::setLogging(true);
     Appodeal::setAge(42);
     Appodeal::setGender(Appodeal::Gender::MALE);
@@ -46,12 +46,12 @@ void MainWindow::on_initializeButton_clicked()
     Appodeal::setRewardedVideoCallback(this);
     Appodeal::setSkippableVideoCallback(this);
 
-    Appodeal::Initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
+    Appodeal::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
 
 void MainWindow::on_showButton_clicked()
 {
-    Appodeal::Show(getRealAdTypes(), "main_menu");
+    Appodeal::show(getRealAdTypes(), "main_menu");
 }
 
 void MainWindow::on_isLoadedButton_clicked()
@@ -62,7 +62,7 @@ void MainWindow::on_isLoadedButton_clicked()
 
 void MainWindow::on_hideButton_clicked()
 {
-    Appodeal::Hide(getRealAdTypes());
+    Appodeal::hide(getRealAdTypes());
 }
 
 void MainWindow::on_cacheButton_clicked()

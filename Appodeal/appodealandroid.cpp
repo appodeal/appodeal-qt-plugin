@@ -31,29 +31,29 @@ AppodealAndroid::~AppodealAndroid(){
     }
 }
 
-void AppodealAndroid::Initialize(const QString &appKey, const int &adType)
+void AppodealAndroid::initialize(const QString &appKey, const int &adType)
 {
     QAndroidJniObject appKeyS = QAndroidJniObject::fromString(appKey);
     m_Activity->callMethod<void>("initialize", "(Ljava/lang/String;I)V",  appKeyS.object<jstring>(), adType);
 }
 
-bool AppodealAndroid::Show(const int &adType)
+bool AppodealAndroid::show(const int &adType)
 {
     return m_Activity->callMethod<jboolean>("show", "(I)Z", adType);
 }
 
-bool AppodealAndroid::Show(const int &adType, const QString &placement)
+bool AppodealAndroid::show(const int &adType, const QString &placement)
 {
     QAndroidJniObject placementS = QAndroidJniObject::fromString(placement);
     return m_Activity->callMethod<jboolean>("show", "(ILjava/lang/String;)Z", adType, placementS.object<jstring>());
 }
 
-void AppodealAndroid::Hide(const int &adType)
+void AppodealAndroid::hide(const int &adType)
 {
     m_Activity->callMethod<void>("hide", "(I)V", adType);
 }
 
-void AppodealAndroid::SetTesting(const bool &flag)
+void AppodealAndroid::setTesting(const bool &flag)
 {
     qDebug("Android.setTesting");
     m_Activity->callMethod<void>("setTesting", "(Z)V", flag);

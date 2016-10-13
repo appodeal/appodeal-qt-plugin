@@ -6,7 +6,7 @@
 class Appodeal
 {
 public:
-    enum Gender{MALE=0, Female=1, Other=2};
+    enum Gender{MALE=0, FFEMALE=1, OTHER=2};
     enum Occupation{WORK=0, UNIVERSITY=1, SCHOOL=2, OCCUPATION_OTHER=3};
     enum Relation{DATING=0, ENGAGED=1, MARRIED=2, SEARCHING=3, SINGLE=4, RELATION_OTHER=5};
     enum Smoking{SMOKING_NEGATIVE=0, SMOKING_NEUTRAL=1, SMOKING_POSITIVE=2};
@@ -21,11 +21,11 @@ public:
     static const int NON_SKIPPABLE_VIDEO;
     static const int ALL;
 
-    static void Initialize (const QString &appKey, const int &adType);
-    static bool Show (const int &adType);
-    static bool Show (const int &adType, const QString &placement);
-    static void Hide (const int &adType);
-    static void SetTesting(const bool &flag);
+    static void initialize (const QString &appKey, const int &adType);
+    static bool show (const int &adType);
+    static bool show (const int &adType, const QString &placement);
+    static void hide (const int &adType);
+    static void setTesting(const bool &flag);
     static void setLogging (const bool &flag);
     static bool isLoaded (const int &adType);
     static bool isPrecache (const int &adType);
