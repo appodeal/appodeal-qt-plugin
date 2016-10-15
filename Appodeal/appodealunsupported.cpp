@@ -27,8 +27,8 @@ void AppodealUnsupported::setTesting(const bool &flag){
     (void)flag;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::setLogging(const bool &flag){
-    (void)flag;
+void AppodealUnsupported::setLogLevel(const int &level){
+    (void)level;
     qInfo("Appodeal disabled");
 }
 bool AppodealUnsupported::isLoaded(const int &adType){

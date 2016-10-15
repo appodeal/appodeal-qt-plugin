@@ -55,8 +55,8 @@ void Appodeal::hide (const int &adType){
 void Appodeal::setTesting(const bool &flag){
     Appodeal::getInstance()->setTesting(flag);
 }
-void Appodeal::setLogging (const bool &flag){
-    Appodeal::getInstance()->setLogging(flag);
+void Appodeal::setLogLevel (const LogLevel &level){
+    Appodeal::getInstance()->setLogLevel(level);
 }
 bool Appodeal::isLoaded (const int &adType){
     return Appodeal::getInstance()->isLoaded(adType);

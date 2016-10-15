@@ -16,7 +16,7 @@ public:
     virtual bool show (const int &adType, const QString &placement) = 0;
     virtual void hide (const int &adType) = 0;
     virtual void setTesting(const bool &flag) = 0;
-    virtual void setLogging (const bool &flag) = 0;
+    virtual void setLogLevel (const int &level) = 0;
     virtual bool isLoaded (const int &adType) = 0;
     virtual bool isPrecache (const int &adType) = 0;
     virtual void cache (const int &adType) = 0;

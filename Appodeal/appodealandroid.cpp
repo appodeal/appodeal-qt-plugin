@@ -55,14 +55,12 @@ void AppodealAndroid::hide(const int &adType)
 
 void AppodealAndroid::setTesting(const bool &flag)
 {
-    qDebug("Android.setTesting");
     m_Activity->callMethod<void>("setTesting", "(Z)V", flag);
 }
 
-void AppodealAndroid::setLogging(const bool &flag)
+void AppodealAndroid::setLogLevel(const int &level)
 {
-    qDebug("Android.setLogging");
-    m_Activity->callMethod<void>("setLogging", "(Z)V", flag);
+    m_Activity->callMethod<void>("setLogLevel", "(I)V", level);
 }
 
 bool AppodealAndroid::isLoaded(const int &adType)

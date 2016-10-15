@@ -11,6 +11,7 @@ public:
     enum Relation{DATING=0, ENGAGED=1, MARRIED=2, SEARCHING=3, SINGLE=4, RELATION_OTHER=5};
     enum Smoking{SMOKING_NEGATIVE=0, SMOKING_NEUTRAL=1, SMOKING_POSITIVE=2};
     enum Alcohol{ALCOHOL_NEGATIVE=0, ALCOHOL_NEUTRAL=1, ALCOHOL_POSITIVE=2};
+    enum LogLevel{none=2, debug=0, verbose=1};
     static const int NONE;
     static const int INTERSTITIAL;
     static const int SKIPPABLE_VIDEO;
@@ -26,7 +27,7 @@ public:
     static bool show (const int &adType, const QString &placement);
     static void hide (const int &adType);
     static void setTesting(const bool &flag);
-    static void setLogging (const bool &flag);
+    static void setLogLevel (const LogLevel &level);
     static bool isLoaded (const int &adType);
     static bool isPrecache (const int &adType);
     static void cache (const int &adType);

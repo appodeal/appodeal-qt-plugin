@@ -159,9 +159,11 @@ In test mode test ads will be shown and debug data will be written to logcat
 #### Enabling logging
 
 ```
-Appodeal::setLogging(true);
+Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
 ```
 Enable debug logging to logcat using tag "Appodeal"
+
+Possible values: Appodeal::LogLevel::verbose, Appodeal::LogLevel::debug, Appodeal::LogLevel::none.
 
 #### Checking if ad is loaded
 

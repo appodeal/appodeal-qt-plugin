@@ -13,7 +13,7 @@ public:
     virtual bool show (const int &adType, const QString &placement);
     virtual void hide (const int &adType);
     virtual void setTesting(const bool &flag);
-    virtual void setLogging (const bool &flag);
+    virtual void setLogLevel (const int &level);
     virtual bool isLoaded (const int &adType);
     virtual bool isPrecache (const int &adType);
     virtual void cache (const int &adType);

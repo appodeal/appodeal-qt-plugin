@@ -31,7 +31,7 @@ void MainWindow::on_initializeButton_clicked()
 
     Appodeal::setAutoCache(adTypes, autoCache);
     //Appodeal::setTesting(true);
-    Appodeal::setLogging(true);
+    Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
     Appodeal::setAge(42);
     Appodeal::setGender(Appodeal::Gender::MALE);
     Appodeal::setOccupation(Appodeal::Occupation::OCCUPATION_OTHER);

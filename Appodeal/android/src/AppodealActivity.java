@@ -59,9 +59,22 @@ public class AppodealActivity extends QtActivity{
         Appodeal.setTesting(flag);
     }
 
-    public void setLogging (boolean flag)
+    public void setLogLevel (int level)
     {
-        Appodeal.setLogging(flag);
+        com.appodeal.ads.utils.Log.LogLevel appodealLevel;
+		switch(level)
+		{
+			case 0:
+                appodealLevel = com.appodeal.ads.utils.Log.LogLevel.debug;
+				break;
+			case 1:
+                appodealLevel = com.appodeal.ads.utils.Log.LogLevel.verbose;
+				break;
+			case 2:
+            default:
+                appodealLevel = com.appodeal.ads.utils.Log.LogLevel.none;
+		}
+        Appodeal.setLogLevel(appodealLevel);
     }
 
     public boolean isLoaded (int adType)
