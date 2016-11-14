@@ -37,9 +37,19 @@ void MainWindow::on_initializeButton_clicked()
     Appodeal::setOccupation(Appodeal::Occupation::OCCUPATION_OTHER);
     Appodeal::setEmail("example@gmail.com");
     Appodeal::setInterests("jogging, football");
+
     Appodeal::setCustomRule("special_user", true);
+    Appodeal::setCustomRule("user_age", 25);
+    Appodeal::setCustomRule("time_online", 1.5);
+    Appodeal::setCustomRule("some_string_rule", "value");
+
     Appodeal::confirm(Appodeal::SKIPPABLE_VIDEO);
     Appodeal::requestAndroidMPermissions();
+    Appodeal::set728x90Banners(false);
+    Appodeal::setSmartBanners(false);
+    Appodeal::setBannerAnimation(false);
+    Appodeal::disableLocationPermissionCheck();
+
     Appodeal::setNonSkippableVideoCallback(this);
     Appodeal::setBannerCallback(this);
     Appodeal::setInterstitialCallback(this);
