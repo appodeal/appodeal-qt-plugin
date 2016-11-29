@@ -9,6 +9,7 @@ public:
     virtual void onInterstitialShown() = 0;
     virtual void onInterstitialClicked() = 0;
     virtual void onInterstitialClosed() = 0;
+	virtual void onInterstitialFinished() = 0;
 };
 
 #endif // INTERSTITIALCALLBACKS_H

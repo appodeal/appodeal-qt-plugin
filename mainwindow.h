@@ -7,13 +7,12 @@
 #include "Appodeal/bannercallbacks.h"
 #include "Appodeal/interstitialcallbacks.h"
 #include "Appodeal/rewardedvideocallbacks.h"
-#include "Appodeal/skippablevideocallbacks.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks, public SkippalbeVideoCallbacks
+class MainWindow : public QMainWindow, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks
 {
     Q_OBJECT
 
@@ -33,16 +32,12 @@ public:
     virtual void onInterstitialShown();
     virtual void onInterstitialClicked();
     virtual void onInterstitialClosed();
+	virtual void onInterstitialFinished();
     virtual void onRewardedVideoLoaded ();
     virtual void onRewardedVideoFailedToLoad ();
     virtual void onRewardedVideoShown ();
     virtual void onRewardedVideoFinished (int value, QString currency);
     virtual void onRewardedVideoClosed (bool isFinished);
-    virtual void onSkippableVideoLoaded();
-    virtual void onSkippableVideoFailedToLoad();
-    virtual void onSkippableVideoShown();
-    virtual void onSkippableVideoFinished();
-    virtual void onSkippableVideoClosed(bool isFinished);
     ~MainWindow();
 
 private slots:

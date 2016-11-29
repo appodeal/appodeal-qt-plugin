@@ -86,7 +86,7 @@ void AppodealAndroid::setAutoCache(const int &adType, const bool &flag)
 
 void AppodealAndroid::setOnLoadedTriggerBoth(const int &adType, const bool &flag)
 {
-    m_Activity->callMethod<void>("setOnLoadedTriggerBoth", "(IZ)V", adType, flag);
+    m_Activity->callMethod<void>("setTriggerOnLoadedOnPrecache", "(IZ)V", adType, flag);
 }
 void AppodealAndroid::setInterstitialCallback(InterstitialCallbacks* callback)
 {
@@ -98,12 +98,6 @@ void AppodealAndroid::setBannerCallback (BannerCallbacks *callbacks)
 {
     signalReceiver->setBannerCallback(callbacks);
     m_Activity->callMethod<void>("setBannerCallback", "()V");
-}
-
-void AppodealAndroid::setSkippableVideoCallback(SkippalbeVideoCallbacks* callbacks)
-{
-    signalReceiver->setSkippableVideoCallback(callbacks);
-    m_Activity->callMethod<void>("setSkippableVideoCallback", "()V");
 }
 
 void AppodealAndroid::setRewardedVideoCallback(RewardedVideoCallbacks* callbacks)
@@ -256,6 +250,9 @@ void AppodealAndroid::onInterstitialClicked(){
 void AppodealAndroid::onInterstitialClosed(){
     QMetaObject::invokeMethod(signalReceiver, "onInterstitialClosed", Qt::QueuedConnection);
 }
+void AppodealAndroid::onInterstitialFinished(){
+	QMetaObject::invokeMethod(signalReceiver, "onInterstitialFinished", Qt::QueuedConnection);
+}
 
 void AppodealAndroid::onRewardedVideoLoaded (){
      QMetaObject::invokeMethod(signalReceiver, "onRewardedVideoLoaded", Qt::QueuedConnection);
@@ -271,20 +268,5 @@ void AppodealAndroid::onRewardedVideoFinished (JNIEnv *env, jobject, jint value,
 }
 void AppodealAndroid::onRewardedVideoClosed (JNIEnv *, jobject, jboolean isFinished){
     QMetaObject::invokeMethod(signalReceiver, "onRewardedVideoClosed", Qt::QueuedConnection, Q_ARG(bool, (bool)isFinished));
-}
-void AppodealAndroid::onSkippableVideoLoaded(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoLoaded", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoFailedToLoad(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoFailedToLoad", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoShown(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoShown", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoFinished(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoFinished", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoClosed(JNIEnv *, jobject, jboolean  isFinished){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoClosed", Qt::QueuedConnection, Q_ARG(bool, (bool)isFinished));
 }
 #endif

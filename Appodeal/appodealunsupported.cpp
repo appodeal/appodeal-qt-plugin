@@ -61,10 +61,6 @@ void AppodealUnsupported::setBannerCallback (BannerCallbacks* callbacks){
     (void)callbacks;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::setSkippableVideoCallback(SkippalbeVideoCallbacks* callbacks){
-    (void)callbacks;
-    qInfo("Appodeal disabled");
-}
 void AppodealUnsupported::setRewardedVideoCallback(RewardedVideoCallbacks* callbacks){
     (void)callbacks;
     qInfo("Appodeal disabled");

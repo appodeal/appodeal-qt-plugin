@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     QStringList list;
-    list << "Banner" << "Interstitial" << "Rewarded video" << "Skippable Video" << "Video or Interstitial";
+    list << "Banner" << "Interstitial" << "Rewarded video";
     ui->adType->addItems(list);
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::red);
@@ -43,7 +43,7 @@ void MainWindow::on_initializeButton_clicked()
     Appodeal::setCustomRule("time_online", 1.5);
     Appodeal::setCustomRule("some_string_rule", "value");
 
-    Appodeal::confirm(Appodeal::SKIPPABLE_VIDEO);
+    Appodeal::confirm(Appodeal::INTERSTITIAL);
     Appodeal::requestAndroidMPermissions();
     Appodeal::set728x90Banners(false);
     Appodeal::setSmartBanners(false);
@@ -54,7 +54,6 @@ void MainWindow::on_initializeButton_clicked()
     Appodeal::setBannerCallback(this);
     Appodeal::setInterstitialCallback(this);
     Appodeal::setRewardedVideoCallback(this);
-    Appodeal::setSkippableVideoCallback(this);
 
     Appodeal::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
@@ -91,12 +90,6 @@ int MainWindow::getRealAdTypes(){
             break;
         case 2:
             adType = Appodeal::REWARDED_VIDEO;
-            break;
-        case 3:
-            adType = Appodeal::SKIPPABLE_VIDEO;
-            break;
-        case 4:
-            adType = Appodeal::SKIPPABLE_VIDEO | Appodeal::INTERSTITIAL;
             break;
     }
     return adType;
@@ -163,6 +156,11 @@ void MainWindow::onInterstitialClosed(){
     QMessageBox::information(this, "Interstitial Callback", "Closed", QMessageBox::Ok);
 }
 
+void MainWindow::onInterstitialFinished(){
+	qInfo("Interstitial finished");
+    QMessageBox::information(this, "Interstitial Callback", "Finished", QMessageBox::Ok);
+}
+
 void MainWindow::onRewardedVideoLoaded (){
     qInfo("Rewarded loaded");
     QMessageBox::information(this, "Rewarded Callback", "Loaded", QMessageBox::Ok);
@@ -184,25 +182,4 @@ void MainWindow::onRewardedVideoFinished (int value, QString currency){
 void MainWindow::onRewardedVideoClosed (bool isFinished){
     qInfo("Rewarded closed");
     QMessageBox::information(this, "Rewarded Callback", "Closed", QMessageBox::Ok);
-}
-
-void MainWindow::onSkippableVideoLoaded(){
-    qInfo("Skippable loaded");
-    QMessageBox::information(this, "Skippable Callback", "Loaded", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoFailedToLoad(){
-    qInfo("Skippable failed to load");
-    QMessageBox::information(this, "Skippable Callback", "Failed to load", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoShown(){
-    qInfo("Skippable shown");
-    QMessageBox::information(this, "Skippable Callback", "Shown", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoFinished(){
-    qInfo("Skippable finished");
-    QMessageBox::information(this, "Skippable Callback", "Finished", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoClosed(bool isFinished){
-    qInfo("Skippable closed");
-    QMessageBox::information(this, "Skippable Callback", "closed", QMessageBox::Ok);
 }

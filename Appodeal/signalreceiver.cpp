@@ -1,7 +1,7 @@
 #include "signalreceiver.h"
 
 
-SignalReceiver::SignalReceiver():nonSkippableCallbacks(NULL), bannerCallbacks(NULL), interstitialCallbacks(NULL), rewardedVideoCallbacks(NULL), skippableVideoCallbacks(NULL){}
+SignalReceiver::SignalReceiver():nonSkippableCallbacks(NULL), bannerCallbacks(NULL), interstitialCallbacks(NULL), rewardedVideoCallbacks(NULL){}
 
 SignalReceiver::~SignalReceiver(){}
 void SignalReceiver::setNonSkippableCallback(NonSkippableVideoCallbacks* callback){
@@ -18,10 +18,6 @@ void SignalReceiver::setInterstitialCallback(InterstitialCallbacks* callback){
 
 void SignalReceiver::setRewardedVideoCallback(RewardedVideoCallbacks* callback){
     rewardedVideoCallbacks = callback;
-}
-
-void SignalReceiver::setSkippableVideoCallback(SkippalbeVideoCallbacks *callback){
-    skippableVideoCallbacks = callback;
 }
 
 void SignalReceiver::onNonSkippableVideoLoaded(){
@@ -86,6 +82,11 @@ void SignalReceiver::onInterstitialClosed(){
         interstitialCallbacks->onInterstitialClosed();
 }
 
+void SignalReceiver::onInterstitialFinished(){
+	if(interstitialCallbacks)
+		interstitialCallbacks->onInterstitialFinished();
+}
+
 void SignalReceiver::onRewardedVideoLoaded (){
     if(rewardedVideoCallbacks)
         rewardedVideoCallbacks->onRewardedVideoLoaded();
@@ -106,25 +107,4 @@ void SignalReceiver::onRewardedVideoFinished (int value, QString currency){
 void SignalReceiver::onRewardedVideoClosed (bool isFinished){
     if(rewardedVideoCallbacks)
         rewardedVideoCallbacks->onRewardedVideoClosed(isFinished);
-}
-
-void SignalReceiver::onSkippableVideoLoaded(){
-    if(skippableVideoCallbacks)
-        skippableVideoCallbacks->onSkippableVideoLoaded();
-}
-void SignalReceiver::onSkippableVideoFailedToLoad(){
-    if(skippableVideoCallbacks)
-        skippableVideoCallbacks->onSkippableVideoFailedToLoad();
-}
-void SignalReceiver::onSkippableVideoShown(){
-    if(skippableVideoCallbacks)
-        skippableVideoCallbacks->onSkippableVideoShown();
-}
-void SignalReceiver::onSkippableVideoFinished(){
-    if(skippableVideoCallbacks)
-        skippableVideoCallbacks->onSkippableVideoFinished();
-}
-void SignalReceiver::onSkippableVideoClosed(bool isFinished){
-    if(skippableVideoCallbacks)
-        skippableVideoCallbacks->onSkippableVideoClosed(isFinished);
 }

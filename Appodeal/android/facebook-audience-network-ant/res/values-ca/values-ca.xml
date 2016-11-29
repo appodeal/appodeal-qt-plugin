@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="com_facebook_ads_learn_more">Més informació</string>
+    <string name="com_facebook_skip_ad">Omet Ad</string>
+    <string name="com_facebook_skip_ad_in">Saltar Ad a</string>
+</resources>

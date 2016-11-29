@@ -1,0 +1,14 @@
+{
+  "log": true,
+  "update_type": 10007,
+  "report_env": "test",
+  "report_url": "http://ms.cmcm.com/app",
+  "receiver_on": ["*"],
+  "receiver_off": [
+    "location","running_with_duration","bluetooth"
+  ],
+   "host_product":"dmc_sdk_en",
+  "host_package":"com.cmcm.dmc.sdk.intl",
+  "host_version": "5.11.1.24",
+  "host_channel": "100005"
+}
