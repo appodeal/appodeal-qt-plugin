@@ -51,6 +51,10 @@ private slots:
 
     void on_cacheButton_clicked();
 
+    void on_isPrecacheButton_clicked();
+
+    void on_showWithPlacement_clicked();
+
 private:
     Ui::MainWindow *ui;
     int getRealAdTypes();

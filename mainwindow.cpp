@@ -27,11 +27,16 @@ MainWindow::~MainWindow()
 void MainWindow::on_initializeButton_clicked()
 {
     int adTypes = getRealAdTypes();
-    bool autoCache = ui->autoCache->isChecked();
+    if(ui->logging->isChecked())
+        Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
+    else
+        Appodeal::setLogLevel(Appodeal::LogLevel::none);
+    Appodeal::setTesting(ui->testing->isChecked());
+    Appodeal::setAutoCache(adTypes, ui->autoCache->isChecked());
+    Appodeal::setOnLoadedTriggerBoth(adTypes, ui->enableTriggerOnLoadedOnPrecache->isChecked());
+    if(ui->confirm->isChecked())
+        Appodeal::confirm(adTypes);
 
-    Appodeal::setAutoCache(adTypes, autoCache);
-    //Appodeal::setTesting(true);
-    Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
     Appodeal::setAge(42);
     Appodeal::setGender(Appodeal::Gender::MALE);
     Appodeal::setOccupation(Appodeal::Occupation::OCCUPATION_OTHER);
@@ -43,12 +48,15 @@ void MainWindow::on_initializeButton_clicked()
     Appodeal::setCustomRule("time_online", 1.5);
     Appodeal::setCustomRule("some_string_rule", "value");
 
-    Appodeal::confirm(Appodeal::INTERSTITIAL);
+
     Appodeal::requestAndroidMPermissions();
-    Appodeal::set728x90Banners(false);
-    Appodeal::setSmartBanners(false);
-    Appodeal::setBannerAnimation(false);
-    Appodeal::disableLocationPermissionCheck();
+    Appodeal::set728x90Banners(!ui->disable728x90Banners->isChecked());
+    Appodeal::setSmartBanners(!ui->disableSmartBanners->isChecked());
+    Appodeal::setBannerAnimation(!ui->disableBannerAnimation->isChecked());
+    if(ui->disableLocationPermissionCheck->isChecked())
+        Appodeal::disableLocationPermissionCheck();
+    if(ui->disableWriteExternalStorageCheck->isChecked())
+        Appodeal::disableWriteExternalStoragePermissionCheck();
 
     Appodeal::setNonSkippableVideoCallback(this);
     Appodeal::setBannerCallback(this);
@@ -60,7 +68,7 @@ void MainWindow::on_initializeButton_clicked()
 
 void MainWindow::on_showButton_clicked()
 {
-    Appodeal::show(getRealAdTypes(), "main_menu");
+    Appodeal::show(getRealAdTypes());
 }
 
 void MainWindow::on_isLoadedButton_clicked()
@@ -182,4 +190,15 @@ void MainWindow::onRewardedVideoFinished (int value, QString currency){
 void MainWindow::onRewardedVideoClosed (bool isFinished){
     qInfo("Rewarded closed");
     QMessageBox::information(this, "Rewarded Callback", "Closed", QMessageBox::Ok);
+}
+
+void MainWindow::on_isPrecacheButton_clicked()
+{
+    bool isLoaded = Appodeal::isPrecache(getRealAdTypes());
+    QMessageBox::information(this, "Information", isLoaded ? "Precache" : "Not precache", QMessageBox::Ok);
+}
+
+void MainWindow::on_showWithPlacement_clicked()
+{
+    Appodeal::show(getRealAdTypes(), "main_menu");
 }

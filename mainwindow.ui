@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>640</height>
+    <width>640</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -56,16 +56,23 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="autoCache">
+       <widget class="QPushButton" name="cacheButton">
         <property name="text">
-         <string>Auto cache</string>
+         <string>Cache Ad</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cacheButton">
+       <widget class="QPushButton" name="isLoadedButton">
         <property name="text">
-         <string>Cache Ad</string>
+         <string>Is Loaded?</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="isPrecacheButton">
+        <property name="text">
+         <string>Is Precache?</string>
         </property>
        </widget>
       </item>
@@ -77,9 +84,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="isLoadedButton">
+       <widget class="QPushButton" name="showWithPlacement">
         <property name="text">
-         <string>Is loaded</string>
+         <string>Show With Placement</string>
         </property>
        </widget>
       </item>
@@ -87,6 +94,94 @@
        <widget class="QPushButton" name="hideButton">
         <property name="text">
          <string>Hide</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>30</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QCheckBox" name="logging">
+          <property name="text">
+           <string>Logging</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="testing">
+          <property name="text">
+           <string>Testing</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>7</number>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="autoCache">
+          <property name="text">
+           <string>Autocache</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="confirm">
+          <property name="text">
+           <string>Confirm</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="disableSmartBanners">
+        <property name="text">
+         <string>Disable Smart Banners</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="disableBannerAnimation">
+        <property name="text">
+         <string>Disable Banner Animation</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="disable728x90Banners">
+        <property name="text">
+         <string>Disable 728x90 Banners</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="enableTriggerOnLoadedOnPrecache">
+        <property name="text">
+         <string>Enable Trigger onLoaded on precache</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="disableLocationPermissionCheck">
+        <property name="text">
+         <string>Disable Location Permission Check</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="disableWriteExternalStorageCheck">
+        <property name="text">
+         <string>Disable Write External Storage Check</string>
         </property>
        </widget>
       </item>
