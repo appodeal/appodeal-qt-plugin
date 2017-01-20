@@ -8,8 +8,7 @@
 AppodealInterface* Appodeal::appodeal = 0;
 
 const int Appodeal::NONE                = 0;
-const int Appodeal::INTERSTITIAL        = 1;
-const int Appodeal::SKIPPABLE_VIDEO     = 2;
+const int Appodeal::INTERSTITIAL        = 3;
 const int Appodeal::BANNER              = 4;
 const int Appodeal::BANNER_BOTTOM       = 8;
 const int Appodeal::BANNER_TOP          = 16;
@@ -78,9 +77,6 @@ void Appodeal::setInterstitialCallback (InterstitialCallbacks* callback){
 }
 void Appodeal::setBannerCallback (BannerCallbacks* callbacks){
     Appodeal::getInstance()->setBannerCallback(callbacks);
-}
-void Appodeal::setSkippableVideoCallback (SkippalbeVideoCallbacks* callbacks){
-    Appodeal::getInstance()->setSkippableVideoCallback(callbacks);
 }
 void Appodeal::setRewardedVideoCallback (RewardedVideoCallbacks* callbacks){
     Appodeal::getInstance()->setRewardedVideoCallback(callbacks);

@@ -26,7 +26,6 @@ public:
     virtual void setOnLoadedTriggerBoth (const int &adType, const bool &flag);
     virtual void setInterstitialCallback (InterstitialCallbacks* callback);
     virtual void setBannerCallback (BannerCallbacks* callbacks);
-    virtual void setSkippableVideoCallback (SkippalbeVideoCallbacks* callbacks);
     virtual void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks);
     virtual void disableNetwork(const QString &network);
     virtual void disableNetwork(const QString &network, const int &adType);
@@ -75,16 +74,12 @@ private:
     static void onInterstitialShown();
     static void onInterstitialClicked();
     static void onInterstitialClosed();
+	static void onInterstitialFinished();
     static void onRewardedVideoLoaded ();
     static void onRewardedVideoFailedToLoad ();
     static void onRewardedVideoShown ();
     static void onRewardedVideoFinished (JNIEnv *, jobject, jint i, jstring s);
     static void onRewardedVideoClosed (JNIEnv *, jobject, jboolean isFinished);
-    static void onSkippableVideoLoaded();
-    static void onSkippableVideoFailedToLoad();
-    static void onSkippableVideoShown();
-    static void onSkippableVideoFinished();
-    static void onSkippableVideoClosed(JNIEnv *, jobject, jboolean isFinished);
 };
 
 #endif // APPODEALANDROID_H

@@ -19,7 +19,6 @@ import com.appodeal.ads.BannerCallbacks;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.NonSkippableVideoCallbacks;
 import com.appodeal.ads.RewardedVideoCallbacks;
-import com.appodeal.ads.SkippableVideoCallbacks;
 import com.appodeal.ads.UserSettings;
 
 
@@ -97,9 +96,9 @@ public class AppodealActivity extends QtActivity{
          Appodeal.setAutoCache(adType, flag);
     }
 
-    public void setOnLoadedTriggerBoth (int adType, boolean flag)
+    public void setTriggerOnLoadedOnPrecache (int adType, boolean flag)
     {
-        Appodeal.setOnLoadedTriggerBoth(adType, flag);
+        Appodeal.setTriggerOnLoadedOnPrecache(adType, flag);
     }
 
     public static native void onInterstitialLoaded(boolean isPrecache);
@@ -107,6 +106,7 @@ public class AppodealActivity extends QtActivity{
     public static native void onInterstitialShown();
     public static native void onInterstitialClicked();
     public static native void onInterstitialClosed();
+	public static native void onInterstitialFinished();
 
     public void setInterstitialCallback ()
     {
@@ -122,6 +122,8 @@ public class AppodealActivity extends QtActivity{
             public void onInterstitialClicked(){AppodealActivity.onInterstitialClicked();}
             @Override
             public void onInterstitialClosed(){AppodealActivity.onInterstitialClosed();}
+			@Override
+			public void onInterstitialFinished(){AppodealActivity.onInterstitialFinished();}
           });
 
     }
@@ -151,23 +153,6 @@ public class AppodealActivity extends QtActivity{
     public static native void onSkippableVideoShown ();
     public static native void onSkippableVideoFinished ();
     public static native void onSkippableVideoClosed (boolean isFinished);
-
-    public void setSkippableVideoCallback ()
-    {
-        Appodeal.setSkippableVideoCallbacks(new SkippableVideoCallbacks() {
-			@Override
-                        public void onSkippableVideoLoaded() {AppodealActivity.onSkippableVideoLoaded();}
-			@Override
-			public void onSkippableVideoFailedToLoad() {AppodealActivity.onSkippableVideoFailedToLoad();}
-			@Override
-			public void onSkippableVideoShown() {AppodealActivity.onSkippableVideoShown();}
-			@Override
-			public void onSkippableVideoFinished() {AppodealActivity.onSkippableVideoFinished();}
-			@Override
-			public void onSkippableVideoClosed(boolean isFinished) {AppodealActivity.onSkippableVideoClosed(isFinished);}
-
-          });
-    }
 	
     public static native void onNonSkippableVideoLoaded ();
     public static native void onNonSkippableVideoFailedToLoad ();

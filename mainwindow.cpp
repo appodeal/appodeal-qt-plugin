@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     QStringList list;
-    list << "Banner" << "Interstitial" << "Rewarded video" << "Skippable Video" << "Video or Interstitial";
+    list << "Banner" << "Interstitial" << "Rewarded video";
     ui->adType->addItems(list);
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::red);
@@ -27,31 +27,48 @@ MainWindow::~MainWindow()
 void MainWindow::on_initializeButton_clicked()
 {
     int adTypes = getRealAdTypes();
-    bool autoCache = ui->autoCache->isChecked();
+    if(ui->logging->isChecked())
+        Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
+    else
+        Appodeal::setLogLevel(Appodeal::LogLevel::none);
+    Appodeal::setTesting(ui->testing->isChecked());
+    Appodeal::setAutoCache(adTypes, ui->autoCache->isChecked());
+    Appodeal::setOnLoadedTriggerBoth(adTypes, ui->enableTriggerOnLoadedOnPrecache->isChecked());
+    if(ui->confirm->isChecked())
+        Appodeal::confirm(adTypes);
 
-    Appodeal::setAutoCache(adTypes, autoCache);
-    //Appodeal::setTesting(true);
-    Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
     Appodeal::setAge(42);
     Appodeal::setGender(Appodeal::Gender::MALE);
     Appodeal::setOccupation(Appodeal::Occupation::OCCUPATION_OTHER);
     Appodeal::setEmail("example@gmail.com");
     Appodeal::setInterests("jogging, football");
+
     Appodeal::setCustomRule("special_user", true);
-    Appodeal::confirm(Appodeal::SKIPPABLE_VIDEO);
+    Appodeal::setCustomRule("user_age", 25);
+    Appodeal::setCustomRule("time_online", 1.5);
+    Appodeal::setCustomRule("some_string_rule", "value");
+
+
     Appodeal::requestAndroidMPermissions();
+    Appodeal::set728x90Banners(!ui->disable728x90Banners->isChecked());
+    Appodeal::setSmartBanners(!ui->disableSmartBanners->isChecked());
+    Appodeal::setBannerAnimation(!ui->disableBannerAnimation->isChecked());
+    if(ui->disableLocationPermissionCheck->isChecked())
+        Appodeal::disableLocationPermissionCheck();
+    if(ui->disableWriteExternalStorageCheck->isChecked())
+        Appodeal::disableWriteExternalStoragePermissionCheck();
+
     Appodeal::setNonSkippableVideoCallback(this);
     Appodeal::setBannerCallback(this);
     Appodeal::setInterstitialCallback(this);
     Appodeal::setRewardedVideoCallback(this);
-    Appodeal::setSkippableVideoCallback(this);
 
     Appodeal::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
 
 void MainWindow::on_showButton_clicked()
 {
-    Appodeal::show(getRealAdTypes(), "main_menu");
+    Appodeal::show(getRealAdTypes());
 }
 
 void MainWindow::on_isLoadedButton_clicked()
@@ -81,12 +98,6 @@ int MainWindow::getRealAdTypes(){
             break;
         case 2:
             adType = Appodeal::REWARDED_VIDEO;
-            break;
-        case 3:
-            adType = Appodeal::SKIPPABLE_VIDEO;
-            break;
-        case 4:
-            adType = Appodeal::SKIPPABLE_VIDEO | Appodeal::INTERSTITIAL;
             break;
     }
     return adType;
@@ -153,6 +164,11 @@ void MainWindow::onInterstitialClosed(){
     QMessageBox::information(this, "Interstitial Callback", "Closed", QMessageBox::Ok);
 }
 
+void MainWindow::onInterstitialFinished(){
+	qInfo("Interstitial finished");
+    QMessageBox::information(this, "Interstitial Callback", "Finished", QMessageBox::Ok);
+}
+
 void MainWindow::onRewardedVideoLoaded (){
     qInfo("Rewarded loaded");
     QMessageBox::information(this, "Rewarded Callback", "Loaded", QMessageBox::Ok);
@@ -176,23 +192,13 @@ void MainWindow::onRewardedVideoClosed (bool isFinished){
     QMessageBox::information(this, "Rewarded Callback", "Closed", QMessageBox::Ok);
 }
 
-void MainWindow::onSkippableVideoLoaded(){
-    qInfo("Skippable loaded");
-    QMessageBox::information(this, "Skippable Callback", "Loaded", QMessageBox::Ok);
+void MainWindow::on_isPrecacheButton_clicked()
+{
+    bool isLoaded = Appodeal::isPrecache(getRealAdTypes());
+    QMessageBox::information(this, "Information", isLoaded ? "Precache" : "Not precache", QMessageBox::Ok);
 }
-void MainWindow::onSkippableVideoFailedToLoad(){
-    qInfo("Skippable failed to load");
-    QMessageBox::information(this, "Skippable Callback", "Failed to load", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoShown(){
-    qInfo("Skippable shown");
-    QMessageBox::information(this, "Skippable Callback", "Shown", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoFinished(){
-    qInfo("Skippable finished");
-    QMessageBox::information(this, "Skippable Callback", "Finished", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoClosed(bool isFinished){
-    qInfo("Skippable closed");
-    QMessageBox::information(this, "Skippable Callback", "closed", QMessageBox::Ok);
+
+void MainWindow::on_showWithPlacement_clicked()
+{
+    Appodeal::show(getRealAdTypes(), "main_menu");
 }

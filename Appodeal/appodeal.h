@@ -14,7 +14,6 @@ public:
     enum LogLevel{none=2, debug=0, verbose=1};
     static const int NONE;
     static const int INTERSTITIAL;
-    static const int SKIPPABLE_VIDEO;
     static const int BANNER;
     static const int BANNER_BOTTOM;
     static const int BANNER_TOP;
@@ -35,7 +34,6 @@ public:
     static void setOnLoadedTriggerBoth (const int &adType, const bool &flag);
     static void setInterstitialCallback (InterstitialCallbacks* callback);
     static void setBannerCallback (BannerCallbacks* callbacks);
-    static void setSkippableVideoCallback (SkippalbeVideoCallbacks* callbacks);
     static void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks);
     static void disableNetwork(const QString &network);
     static void disableNetwork(const QString &network, const int &adType);

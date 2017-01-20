@@ -25,6 +25,7 @@ dependencies {
         exclude module: 'support-v4'
     }
 	compile project(':cheetah-mobile-gradle')
+	compile project(':facebook-audience-network-gradle')
 }
 
 android {
