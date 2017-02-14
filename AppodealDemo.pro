@@ -14,13 +14,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp 
+        mainwindow.cpp \ 
+    testappodeal.cpp
 
 
-HEADERS  += mainwindow.h 
+HEADERS  += mainwindow.h \ 
+    testappodeal.h
 
 
 FORMS    += mainwindow.ui
 
 CONFIG += mobility
 MOBILITY = 
+
+QT += testlib
