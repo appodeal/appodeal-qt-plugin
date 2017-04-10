@@ -1,4 +1,5 @@
 #ifdef ANDROID
+
 #include "appodealandroid.h"
 #include "QAndroidJniObject"
 #include <QPA/QPlatformNativeInterface.h>
@@ -100,7 +101,7 @@ void AppodealAndroid::setBannerCallback (BannerCallbacks *callbacks)
     m_Activity->callMethod<void>("setBannerCallback", "()V");
 }
 
-void AppodealAndroid::setSkippableVideoCallback(SkippalbeVideoCallbacks* callbacks)
+void AppodealAndroid::setSkippableVideoCallback(SkippableVideoCallbacks* callbacks)
 {
     signalReceiver->setSkippableVideoCallback(callbacks);
     m_Activity->callMethod<void>("setSkippableVideoCallback", "()V");
@@ -258,7 +259,7 @@ void AppodealAndroid::onInterstitialClosed(){
 }
 
 void AppodealAndroid::onRewardedVideoLoaded (){
-     QMetaObject::invokeMethod(signalReceiver, "onRewardedVideoLoaded", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(signalReceiver, "onRewardedVideoLoaded", Qt::QueuedConnection);
 }
 void AppodealAndroid::onRewardedVideoFailedToLoad (){
     QMetaObject::invokeMethod(signalReceiver, "onRewardedVideoFailedToLoad", Qt::QueuedConnection);
@@ -287,4 +288,5 @@ void AppodealAndroid::onSkippableVideoFinished(){
 void AppodealAndroid::onSkippableVideoClosed(JNIEnv *, jobject, jboolean  isFinished){
     QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoClosed", Qt::QueuedConnection, Q_ARG(bool, (bool)isFinished));
 }
+
 #endif

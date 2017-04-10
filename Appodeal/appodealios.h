@@ -1,13 +1,17 @@
-#ifndef APPODEALUNSUPPORTED_H
-#define APPODEALUNSUPPORTED_H
+#ifndef APPODEALIOS_H
+#define APPODEALIOS_H
 
+#include <QObject>
 #include "appodealinterface.h"
+#include "signalreceiver.h"
 
-class AppodealUnsupported: public AppodealInterface
-{
+#if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+
+class AppodealiOS: public AppodealInterface {
+    
 public:
-    AppodealUnsupported();
-    ~AppodealUnsupported();
+    AppodealiOS();
+    virtual ~AppodealiOS();
     virtual void initialize (const QString &appKey, const int &adType);
     virtual bool show (const int &adType);
     virtual bool show (const int &adType, const QString &placement);
@@ -27,7 +31,6 @@ public:
     virtual void disableNetwork(const QString &network, const int &adType);
     virtual void disableLocationPermissionCheck();
     virtual void trackInAppPurchase (const QString &currencyCode, const int &amount);
-
     virtual void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks);
     virtual void setAge (const int &age);
     virtual void setBirthday(const QString &bDay);
@@ -50,6 +53,36 @@ public:
     virtual void setCustomRule(const QString &name, const bool &value);
     virtual void setCustomRule(const QString &name, const QString &value);
 
+
+    static SignalReceiver* signalReceiver;
+
+    static void onNonSkippableVideoLoaded();
+    static void onNonSkippableVideoFailedToLoad();
+    static void onNonSkippableVideoShown();
+    static void onNonSkippableVideoFinished();
+    static void onNonSkippableVideoClosed(bool isFinished);
+    static void onBannerLoaded(int height, bool isPrecache);
+    static void onBannerFailedToLoad();
+    static void onBannerShown();
+    static void onBannerClicked();
+    static void onInterstitialLoaded (bool isPrecache);
+    static void onInterstitialFailedToLoad ();
+    static void onInterstitialShown();
+    static void onInterstitialClicked();
+    static void onInterstitialClosed();
+    static void onRewardedVideoLoaded ();
+    static void onRewardedVideoFailedToLoad ();
+    static void onRewardedVideoShown ();
+    static void onRewardedVideoFinished (int i, const QString &s);
+    static void onRewardedVideoClosed (bool isFinished);
+    static void onSkippableVideoLoaded();
+    static void onSkippableVideoFailedToLoad();
+    static void onSkippableVideoShown();
+    static void onSkippableVideoFinished();
+    static void onSkippableVideoClosed(bool isFinished);
+
 };
 
-#endif // APPODEALUNSUPPORTED_H
+#endif // TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+
+#endif // APPODEALIOS_H

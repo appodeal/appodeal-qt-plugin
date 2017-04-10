@@ -24,7 +24,7 @@ public:
     virtual void setOnLoadedTriggerBoth (const int &adType, const bool &flag) = 0;
     virtual void setInterstitialCallback (InterstitialCallbacks* callback) = 0;
     virtual void setBannerCallback (BannerCallbacks* callbacks) = 0;
-    virtual void setSkippableVideoCallback (SkippalbeVideoCallbacks* callbacks) = 0;
+    virtual void setSkippableVideoCallback (SkippableVideoCallbacks* callbacks) = 0;
     virtual void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks) = 0;
     virtual void disableNetwork(const QString &network) = 0;
     virtual void disableNetwork(const QString &network, const int &adType) = 0;

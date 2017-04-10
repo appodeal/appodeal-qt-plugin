@@ -156,7 +156,7 @@ public class AppodealActivity extends QtActivity{
     {
         Appodeal.setSkippableVideoCallbacks(new SkippableVideoCallbacks() {
 			@Override
-                        public void onSkippableVideoLoaded() {AppodealActivity.onSkippableVideoLoaded();}
+            public void onSkippableVideoLoaded() {AppodealActivity.onSkippableVideoLoaded();}
 			@Override
 			public void onSkippableVideoFailedToLoad() {AppodealActivity.onSkippableVideoFailedToLoad();}
 			@Override

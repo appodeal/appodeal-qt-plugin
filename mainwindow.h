@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "Appodeal/appodeal.h"
+#include "Appodeal/appodealads.h"
 #include "Appodeal/nonskippablevideocallbacks.h"
 #include "Appodeal/bannercallbacks.h"
 #include "Appodeal/interstitialcallbacks.h"
@@ -13,7 +13,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks, public SkippalbeVideoCallbacks
+class MainWindow : public QMainWindow, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks, public SkippableVideoCallbacks
 {
     Q_OBJECT
 

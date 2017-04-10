@@ -1,7 +1,7 @@
 #ifndef SKIPPABLEVIDEOCALLBACKS_H
 #define SKIPPABLEVIDEOCALLBACKS_H
 
-class SkippalbeVideoCallbacks{
+class SkippableVideoCallbacks {
 public:
     virtual void onSkippableVideoLoaded() = 0;
     virtual void onSkippableVideoFailedToLoad() = 0;
