@@ -27,8 +27,6 @@ public:
     virtual void setAge (const int &age);
     virtual void setBirthday (const QString &day);
     virtual void setEmail (const QString &email);
-    virtual void setFacebookId (const QString &facebookId);
-    virtual void setVkId (const QString &vkId);
     virtual void setGender (const Gender &gender);
     virtual void setInterests (const QString &interests);
     virtual void setOccupation(const Occupation &occupation);

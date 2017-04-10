@@ -12,15 +12,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = AppodealDemo
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         mainwindow.cpp 
 
-
-HEADERS  += mainwindow.h 
-
+HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
 
 CONFIG += mobility
-MOBILITY = 
+MOBILITY =

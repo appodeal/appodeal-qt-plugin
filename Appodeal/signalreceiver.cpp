@@ -20,7 +20,7 @@ void SignalReceiver::setRewardedVideoCallback(RewardedVideoCallbacks* callback){
     rewardedVideoCallbacks = callback;
 }
 
-void SignalReceiver::setSkippableVideoCallback(SkippalbeVideoCallbacks *callback){
+void SignalReceiver::setSkippableVideoCallback(SkippableVideoCallbacks *callback){
     skippableVideoCallbacks = callback;
 }
 
@@ -28,18 +28,22 @@ void SignalReceiver::onNonSkippableVideoLoaded(){
     if(nonSkippableCallbacks)
         nonSkippableCallbacks->onNonSkippableVideoLoaded();
 }
+
 void SignalReceiver::onNonSkippableVideoFailedToLoad(){
     if(nonSkippableCallbacks)
         nonSkippableCallbacks->onNonSkippableVideoFailedToLoad();
 }
+
 void SignalReceiver::onNonSkippableVideoShown(){
     if(nonSkippableCallbacks)
         nonSkippableCallbacks->onNonSkippableVideoShown();
 }
+
 void SignalReceiver::onNonSkippableVideoFinished(){
     if(nonSkippableCallbacks)
         nonSkippableCallbacks->onNonSkippableVideoFinished();
 }
+
 void SignalReceiver::onNonSkippableVideoClosed(bool isFinished){
     if(nonSkippableCallbacks)
         nonSkippableCallbacks->onNonSkippableVideoClosed(isFinished);

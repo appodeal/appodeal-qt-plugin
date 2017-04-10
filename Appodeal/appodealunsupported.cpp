@@ -1,8 +1,6 @@
 #include "appodealunsupported.h"
 
-AppodealUnsupported::AppodealUnsupported()
-{
-}
+AppodealUnsupported::AppodealUnsupported() { }
 
 void AppodealUnsupported::initialize(const QString &appKey, const int &adType){
     //Hide unused parameter warning
@@ -61,7 +59,7 @@ void AppodealUnsupported::setBannerCallback (BannerCallbacks* callbacks){
     (void)callbacks;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::setSkippableVideoCallback(SkippalbeVideoCallbacks* callbacks){
+void AppodealUnsupported::setSkippableVideoCallback(SkippableVideoCallbacks* callbacks){
     (void)callbacks;
     qInfo("Appodeal disabled");
 }

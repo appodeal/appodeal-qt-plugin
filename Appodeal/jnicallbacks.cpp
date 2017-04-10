@@ -1,14 +1,11 @@
-#if ANDROID
-
 #include <QString>
 #include "appodealandroid.h"
 #include "interstitialcallbacks.h"
 #include "bannercallbacks.h"
-#include "videocallbacks.h"
+#include "skippablevideocallbacks.h"
+#include "nonskippablevideocallbacks.h"
 #include "rewardedvideocallbacks.h"
 
-
-//create a vector with all our JNINativeMethod(s)
 
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
 {
@@ -155,5 +152,3 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
     }
     return JNI_VERSION_1_6;
 }
-
-#endif

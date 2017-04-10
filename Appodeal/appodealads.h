@@ -1,9 +1,9 @@
-#ifndef APPODEAL_H
-#define APPODEAL_H
+#ifndef APPODEALADS_H
+#define APPODEALADS_H
 
 #include "appodealinterface.h"
 
-class Appodeal
+class AppodealAds
 {
 public:
     enum Gender{MALE=0, FFEMALE=1, OTHER=2};
@@ -20,7 +20,6 @@ public:
     static const int BANNER_TOP;
     static const int REWARDED_VIDEO;
     static const int NON_SKIPPABLE_VIDEO;
-    static const int ALL;
 
     static void initialize (const QString &appKey, const int &adType);
     static bool show (const int &adType);
@@ -35,13 +34,12 @@ public:
     static void setOnLoadedTriggerBoth (const int &adType, const bool &flag);
     static void setInterstitialCallback (InterstitialCallbacks* callback);
     static void setBannerCallback (BannerCallbacks* callbacks);
-    static void setSkippableVideoCallback (SkippalbeVideoCallbacks* callbacks);
+    static void setSkippableVideoCallback (SkippableVideoCallbacks* callbacks);
     static void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks);
     static void disableNetwork(const QString &network);
     static void disableNetwork(const QString &network, const int &adType);
     static void disableLocationPermissionCheck();
     static void trackInAppPurchase (const QString &currencyCode, const int &amount);
-    static void clear();
 
     static void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks);
     static void setAge (const int &age);
@@ -68,7 +66,6 @@ public:
 private:
     static AppodealInterface* appodeal;
     static AppodealInterface* getInstance();
-
 };
 
-#endif // APPODEAL_H
+#endif // APPODEALADS_H

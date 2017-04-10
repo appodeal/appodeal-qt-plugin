@@ -8,7 +8,7 @@
 #include "rewardedvideocallbacks.h"
 #include "skippablevideocallbacks.h"
 
-class SignalReceiver: public QObject, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks, public SkippalbeVideoCallbacks
+class SignalReceiver: public QObject, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks, public SkippableVideoCallbacks
 {
     Q_OBJECT
 public:
@@ -18,7 +18,7 @@ public:
     void setBannerCallback(BannerCallbacks* callback);
     void setInterstitialCallback(InterstitialCallbacks* callback);
     void setRewardedVideoCallback(RewardedVideoCallbacks* callback);
-    void setSkippableVideoCallback(SkippalbeVideoCallbacks* callback);
+    void setSkippableVideoCallback(SkippableVideoCallbacks* callback);
 public slots:
     virtual void onNonSkippableVideoLoaded();
     virtual void onNonSkippableVideoFailedToLoad();
@@ -50,7 +50,7 @@ private:
     BannerCallbacks* bannerCallbacks;
     InterstitialCallbacks* interstitialCallbacks;
     RewardedVideoCallbacks* rewardedVideoCallbacks;
-    SkippalbeVideoCallbacks* skippableVideoCallbacks;
+    SkippableVideoCallbacks* skippableVideoCallbacks;
 };
 
 #endif // SIGNALRECEIVER_H
