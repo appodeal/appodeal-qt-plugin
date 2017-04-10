@@ -31,8 +31,7 @@
         </activity>
 
 
-              <meta-data android:name="com.appodeal.framework" android:value="android"/>
-              <meta-data android:name="com.appodeal.framework" android:value="android" />
+              <meta-data android:name="com.appodeal.framework" android:value="qt" />
 			<receiver android:name="com.appodeal.ads.AppodealPackageAddedReceiver" android:exported="true" android:enabled="true">
 			<intent-filter>
 				<action android:name="android.intent.action.PACKAGE_ADDED" />
@@ -81,7 +80,7 @@
 
 			<activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-			<activity android:name="com.my.target.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+			<activity android:name="com.my.target.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:hardwareAccelerated="true"/>
 
 			<activity android:name="org.nexage.sourcekit.vast.activity.VASTActivity"
 				  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -146,7 +145,7 @@
 					<action android:name="com.yandex.metrica.IMetricaService" />
 					<data android:scheme="metrica" />
 				</intent-filter>
-				<meta-data android:name="metrica:api:level" android:value="44" />
+				<meta-data android:name="metrica:api:level" android:value="52" />
 			</service>
 			<receiver android:name="com.yandex.metrica.MetricaEventHandler"
 				  android:enabled="true" android:exported="true">

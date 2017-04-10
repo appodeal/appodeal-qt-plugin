@@ -28,7 +28,7 @@ void MainWindow::on_initializeButton_clicked()
 {
     int adTypes = getRealAdTypes();
     bool autoCache = ui->autoCache->isChecked();
-
+	
     AppodealAds::setAutoCache(adTypes, autoCache);
     AppodealAds::setTesting(true);
     AppodealAds::setLogLevel(AppodealAds::LogLevel::verbose);
@@ -40,7 +40,7 @@ void MainWindow::on_initializeButton_clicked()
     AppodealAds::setCustomRule("special_user", true);
     AppodealAds::confirm(AppodealAds::SKIPPABLE_VIDEO);
     AppodealAds::requestAndroidMPermissions();
-    AppodealAds::setNonSkippableVideoCallback(this);
+    //AppodealAds::setNonSkippableVideoCallback(this);
     AppodealAds::setBannerCallback(this);
     AppodealAds::setInterstitialCallback(this);
     AppodealAds::setRewardedVideoCallback(this);

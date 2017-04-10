@@ -6,6 +6,16 @@
 
 AppodealInterface* AppodealAds::appodeal = 0;
 
+#if (__ANDROID_API__ >= 9)
+const int AppodealAds::NONE                = 0;
+const int AppodealAds::INTERSTITIAL        = 1;
+const int AppodealAds::SKIPPABLE_VIDEO     = 2;
+const int AppodealAds::BANNER              = 4;
+const int AppodealAds::BANNER_BOTTOM       = 8;
+const int AppodealAds::BANNER_TOP          = 16;
+const int AppodealAds::REWARDED_VIDEO      = 128;
+const int AppodealAds::NON_SKIPPABLE_VIDEO = 128;
+#else
 const int AppodealAds::NONE                = 0;
 const int AppodealAds::INTERSTITIAL        = 1;
 const int AppodealAds::SKIPPABLE_VIDEO     = 2;
@@ -14,6 +24,7 @@ const int AppodealAds::BANNER_BOTTOM       = 8;
 const int AppodealAds::BANNER_TOP          = 16;
 const int AppodealAds::REWARDED_VIDEO      = 128;
 const int AppodealAds::NON_SKIPPABLE_VIDEO = 256;
+#endif
 
 AppodealInterface* AppodealAds::getInstance(){
     if(!AppodealAds::appodeal){
