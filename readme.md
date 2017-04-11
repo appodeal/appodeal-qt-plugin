@@ -1,38 +1,18 @@
 # Appodeal QT plugin
 
-## 1. Link your Admob account
-Appodeal yields optimal results in cooperation with Admob. To continue, you need to link your Admob account.
-
-If you don't have Admob account, please sign up on Admob.com.
-
-To link your Admob account to Appodeal, use the Chrome extension:
-
-INSTALL EXTENSION
-
-
-The extension source code is available at https://github.com/appodeal/admob-configurator.
-
-The extension will make two changes in your Admob account. First, it will allow Appodeal to access your Admob reports over API, and second, it will create new ad units on Admob and submit them to Appodeal.
-
-VIDEO TUTORIAL
-
-## 2. Download SDK
+## Download SDK
 
 You can download Appodeal plugin for QT here.
 
 Minimum OS requirements: Android API level 9 (Android OS 2.3).
 
-Android Appodeal SDK version 1.15.5
+Android Appodeal SDK version 1.15.9
 
-iOS Appodeal SDK version x.x.x
+iOS Appodeal SDK version 1.3.9
 
-## 3. AndroidManifest.xml
+## QT Integration
 
-All required changes to AndroidManifest.xml are already included in the plugin
-
-## 4. QT Integration
-
-### 4.1. SDK files
+### SDK files
 
 Download the plugin and unzip it into your project directory. Open *.pro file from your project and add the following line:
 
@@ -40,21 +20,30 @@ Download the plugin and unzip it into your project directory. Open *.pro file fr
 include(Appodeal/Appodeal.pri)
 ```
 
-Also copy TARGET value from that file. After that open Appodeal/android/AndroidManifest.xml in your favorit text editor, find the following line:
+### Android Integration
 
+Also copy TARGET value from *.pro file, open Appodeal/android/AndroidManifest.xml in text editor, find the following line:
 ```
 <meta-data android:name="android.app.lib_name" android:value="AppodealDemo"/>
 ```
-
 And replace AppodealDemo with your TARGET value.
 
-### 4.2. Ad types
+### iOS Integration
+
+After building iOS Project you will get error: `Appodeal.framework/Appodeal(AVHttpClient.o)' does not contain bitcode. You must rebuild it with bitcode enabled (Xcode setting ENABLE_BITCODE), obtain an updated library from the vendor, or disable bitcode for this target. for architecture arm64` don't worry, just open compiled xcode project, go to `Build Settings` Set `Enable Bitcode` to `No` and remove `-fembed-bitcode-marker` flag from  `Other Linker Flags`.
+Now you can succesfully build your project.
+
+### Ad types
 
 Appodeal::INTERSTITIAL
 
 Appodeal::SKIPPABLE_VIDEO
 
 Appodeal::BANNER
+
+Appodeal::BANNER_TOP
+
+Appodeal::BANNER_BOTTOM
 
 Appodeal::REWARDED_VIDEO
 
@@ -64,11 +53,11 @@ Ad types can be combined using "|" operator. For example Appodeal::INTERSTITIAL 
 
 Note that it is better to use NON_SKIPPABLE_VIDEO or REWARDED_VIDEO, but if you are sure you want to use SKIPPABLE_VIDEO you must confirm usage by calling Appodeal::confirm(Appodeal::SKIPPABLE_VIDEO) before SDK initialization
 
-### 4.3. SDK initialization
+### SDK initialization
 
 Import Appodeal header to your code:
 ```
-#include "Appodeal/appodeal.h"
+#include "Appodeal/appodealads.h"
 ```
 To initialize SDK you need to add following code:
 
@@ -91,7 +80,7 @@ To initialize only rewarded video use Appodeal::initialize(appKey, Appodeal::REW
 
 To initialize only non-skippable video use Appodeal::initialize(appKey, Appodeal::NON_SKIPPABLE_VIDEO)
 
-### 4.4. Display ad
+###. Display ad
 
 ```
 Appodeal::show(adTypes);
@@ -113,7 +102,7 @@ To display banner at the bottom of the screen use sppodeal::Show(Appodeal::BANNE
 
 To display banner at the top of the screen use Appodeal::show(Appodeal::BANNER_TOP)
 
-### 4.5. Hiding banner
+### Hiding banner
 
 To hide banner you need to call the following code:
 
@@ -121,7 +110,7 @@ To hide banner you need to call the following code:
 Appodeal::hide(Appodeal::BANNER);
 ```
 
-### 4.6. Samples
+### Samples
 
 Display interstitial after it was loaded
 
@@ -147,7 +136,7 @@ Appodeal::show(Appodeal::INTERSTITIAL);
 
 `Note: showing fullscreen ads immediately after app launch doesn't allowed. Also, if an ad has not uploaded yet, you will see a loader, which will be disappeared after few seconds`
 
-## 5. Advanced features
+## Advanced features
 #### Enabling test mode
 
 ```
@@ -229,7 +218,7 @@ Include skippable video callbacks:
 Extend your class with SkippalbeVideoCallbacks:
 
 ```
-class YourClassName : public SkippalbeVideoCallbacks
+class YourClassName : public SkippableVideoCallbacks
 ```
 
 Add following methods to your class:
@@ -451,7 +440,7 @@ Tracks in-app purchase information and sends info to our servers for analytics. 
 Appodeal::trackInAppPurchase("USD", 5);
 ```
 
-### 5.1. Setting user data.
+### Setting user data.
 Initialization
 
 Our SDK provides the transfer of user data for better ad targeting and higher eCPM. All parameters are optional and can be defined partially.
@@ -524,7 +513,12 @@ Appodeal::setSmoking(Appodeal::Smoking::SMOKING_NEGATIVE);
 
 Possible values: Appodeal::Smoking::SMOKING_NEGATIVE, Appodeal::Smoking::SMOKING_POSITIVE, Appodeal::Smoking::SMOKING_NEUTRAL.
 
-## 6. Changelog
+## Changelog
+
+2.0.0 (10.04.2017)
+* Cross-platform support
+* Appodeal iOS SDK 1.3.9
+* Appodeal Android SDK 1.15.9
 
 1.15.5 (03.10.2016)
 * Release
