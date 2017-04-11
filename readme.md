@@ -22,7 +22,7 @@ include(Appodeal/Appodeal.pri)
 
 ### Android Integration
 
-Also copy TARGET value from *.pro file, open Appodeal/android/AndroidManifest.xml in text editor, find the following line:
+Copy TARGET value from *.pro file, open Appodeal/android/AndroidManifest.xml in text editor, find the following line:
 ```
 <meta-data android:name="android.app.lib_name" android:value="AppodealDemo"/>
 ```
