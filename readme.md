@@ -35,23 +35,23 @@ Now you can succesfully build your project.
 
 ### Ad types
 
-Appodeal::INTERSTITIAL
+AppodealAds::INTERSTITIAL
 
-Appodeal::SKIPPABLE_VIDEO
+AppodealAds::SKIPPABLE_VIDEO
 
-Appodeal::BANNER
+AppodealAds::BANNER
 
-Appodeal::BANNER_TOP
+AppodealAds::BANNER_TOP
 
-Appodeal::BANNER_BOTTOM
+AppodealAds::BANNER_BOTTOM
 
-Appodeal::REWARDED_VIDEO
+AppodealAds::REWARDED_VIDEO
 
-Appodeal::NON_SKIPPABLE_VIDEO
+AppodealAds::NON_SKIPPABLE_VIDEO
 
-Ad types can be combined using "|" operator. For example Appodeal::INTERSTITIAL | Appodeal::SKIPPABLE_VIDEO
+Ad types can be combined using "|" operator. For example AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO
 
-Note that it is better to use NON_SKIPPABLE_VIDEO or REWARDED_VIDEO, but if you are sure you want to use SKIPPABLE_VIDEO you must confirm usage by calling Appodeal::confirm(Appodeal::SKIPPABLE_VIDEO) before SDK initialization
+Note that it is better to use NON_SKIPPABLE_VIDEO or REWARDED_VIDEO, but if you are sure you want to use SKIPPABLE_VIDEO you must confirm usage by calling AppodealAds::confirm(AppodealAds::SKIPPABLE_VIDEO) before SDK initialization
 
 ### SDK initialization
 
@@ -63,51 +63,51 @@ To initialize SDK you need to add following code:
 
 ```
 QString appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
-Appodeal::initialize(appKey, Appodeal::BANNER | Appodeal::INTERSTITIAL);
+AppodealAds::initialize(appKey, AppodealAds::BANNER | AppodealAds::INTERSTITIAL);
 ```
 
 Note: appKey is the key you received when you created an app.
 
-To initialize only interstitials use Appodeal::initialize(appKey, Appodeal::INTERSTITIAL)
+To initialize only interstitials use AppodealAds::initialize(appKey, AppodealAds::INTERSTITIAL)
 
-To initialize only skippable videos use Appodeal::initialize(appKey, Appodeal::SKIPPABLE_VIDEO)
+To initialize only skippable videos use AppodealAds::initialize(appKey, AppodealAds::SKIPPABLE_VIDEO)
 
-To initialize interstitials and videos use Appodeal::initialize(appKey, Appodeal::INTERSTITIAL | Appodeal::SKIPPABLE_VIDEO)
+To initialize interstitials and videos use AppodealAds::initialize(appKey, AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO)
 
-To initialize only banners use Appodeal::initialize(appKey, Appodeal::BANNER)
+To initialize only banners use AppodealAds::initialize(appKey, AppodealAds::BANNER)
 
-To initialize only rewarded video use Appodeal::initialize(appKey, Appodeal::REWARDED_VIDEO)
+To initialize only rewarded video use AppodealAds::initialize(appKey, AppodealAds::REWARDED_VIDEO)
 
-To initialize only non-skippable video use Appodeal::initialize(appKey, Appodeal::NON_SKIPPABLE_VIDEO)
+To initialize only non-skippable video use AppodealAds::initialize(appKey, AppodealAds::NON_SKIPPABLE_VIDEO)
 
 ###. Display ad
 
 ```
-Appodeal::show(adTypes);
+AppodealAds::show(adTypes);
 ```
 
 show() returns a boolean value indicating whether show call was passed to appropriate SDK
 
-To display interstitial use Appodeal::show(Appodeal::INTERSTITIAL)
+To display interstitial use AppodealAds::show(AppodealAds::INTERSTITIAL)
 
-To display skippable video use Appodeal::show(Appodeal::SKIPPABLE_VIDEO)
+To display skippable video use AppodealAds::show(AppodealAds::SKIPPABLE_VIDEO)
 
-To display rewarded video use Appodeal::show(Appodeal::REWARDED_VIDEO)
+To display rewarded video use AppodealAds::show(AppodealAds::REWARDED_VIDEO)
 
-To display non-skippable video use Appodeal::show(Appodeal::NON_SKIPPABLE_VIDEO)
+To display non-skippable video use AppodealAds::show(AppodealAds::NON_SKIPPABLE_VIDEO)
 
-To display interstitial or video use Appodeal::show(Appodeal::INTERSTITIAL | Appodeal::SKIPPABLE_VIDEO)
+To display interstitial or video use AppodealAds::show(AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO)
 
-To display banner at the bottom of the screen use sppodeal::Show(Appodeal::BANNER_BOTTOM)
+To display banner at the bottom of the screen use sppodeal::Show(AppodealAds::BANNER_BOTTOM)
 
-To display banner at the top of the screen use Appodeal::show(Appodeal::BANNER_TOP)
+To display banner at the top of the screen use AppodealAds::show(AppodealAds::BANNER_TOP)
 
 ### Hiding banner
 
 To hide banner you need to call the following code:
 
 ```
-Appodeal::hide(Appodeal::BANNER);
+AppodealAds::hide(AppodealAds::BANNER);
 ```
 
 ### Samples
@@ -116,13 +116,13 @@ Display interstitial after it was loaded
 
 ```
 void YourClassName::onInterstitialLoaded(bool isPrecache){
-	Appodeal::show(Appodeal::INTERSTITIAL);
+	AppodealAds::show(AppodealAds::INTERSTITIAL);
 }
 
-Appodeal::setAutoCache(Appodeal::INTERSTITIAL, false);
-Appodeal::initialize(appKey, Appodeal::INTERSTITIAL);
-Appodeal::cache(Appodeal::INTERSTITIAL);
-Appodeal::setInterstitialCallback(this);
+AppodealAds::setAutoCache(AppodealAds::INTERSTITIAL, false);
+AppodealAds::initialize(appKey, AppodealAds::INTERSTITIAL);
+AppodealAds::cache(AppodealAds::INTERSTITIAL);
+AppodealAds::setInterstitialCallback(this);
 ```
 
 Your class must extend InterstitialCallbacks from Appodeal/interstitialcallbacks.h.
@@ -130,8 +130,8 @@ Your class must extend InterstitialCallbacks from Appodeal/interstitialcallbacks
 Display interstitial after app launch
 
 ```
-Appodeal::initialize(appKey, Appodeal::INTERSTITIAL);
-Appodeal::show(Appodeal::INTERSTITIAL);
+AppodealAds::initialize(appKey, AppodealAds::INTERSTITIAL);
+AppodealAds::show(AppodealAds::INTERSTITIAL);
 ```
 
 `Note: showing fullscreen ads immediately after app launch doesn't allowed. Also, if an ad has not uploaded yet, you will see a loader, which will be disappeared after few seconds`
@@ -140,7 +140,7 @@ Appodeal::show(Appodeal::INTERSTITIAL);
 #### Enabling test mode
 
 ```
-Appodeal::setTesting(true);
+AppodealAds::setTesting(true);
 ```
 
 In test mode test ads will be shown and debug data will be written to logcat
@@ -148,34 +148,34 @@ In test mode test ads will be shown and debug data will be written to logcat
 #### Enabling logging
 
 ```
-Appodeal::setLogLevel(Appodeal::LogLevel::verbose);
+AppodealAds::setLogLevel(AppodealAds::LogLevel::verbose);
 ```
 Enable debug logging to logcat using tag "Appodeal"
 
-Possible values: Appodeal::LogLevel::verbose, Appodeal::LogLevel::debug, Appodeal::LogLevel::none.
+Possible values: AppodealAds::LogLevel::verbose, AppodealAds::LogLevel::debug, AppodealAds::LogLevel::none.
 
 #### Checking if ad is loaded
 
 ```
-Appodeal::isLoaded(adTypes);
+AppodealAds::isLoaded(adTypes);
 ```
-To check if interstitial is loaded use Appodeal::isLoaded(Appodeal::INTERSTITIAL)
+To check if interstitial is loaded use AppodealAds::isLoaded(AppodealAds::INTERSTITIAL)
 
-To check if skippable video is loaded use Appodeal::isLoaded(Appodeal::SKIPPABLE_VIDEO)
+To check if skippable video is loaded use AppodealAds::isLoaded(AppodealAds::SKIPPABLE_VIDEO)
 
-To check if rewarded video is loaded use Appodeal::(Appodeal::REWARDED_VIDEO)
+To check if rewarded video is loaded use AppodealAds::(AppodealAds::REWARDED_VIDEO)
 
-To check if non-skippable video is loaded use Appodeal::(Appodeal::NON_SKIPPABLE_VIDEO)
+To check if non-skippable video is loaded use AppodealAds::(AppodealAds::NON_SKIPPABLE_VIDEO)
 
-To check if banner is loaded use Appodeal::isLoaded(Appodeal::BANNER)
+To check if banner is loaded use AppodealAds::isLoaded(AppodealAds::BANNER)
 
 #### Checking if loaded ad is precache
 
 ```
-Appodeal::isPrecache(adTypes);
+AppodealAds::isPrecache(adTypes);
 ```
 
-Currently supported only for interstitials, Use Appodeal::isPrecache(Appodeal::INTERSTITIAL)
+Currently supported only for interstitials, Use AppodealAds::isPrecache(AppodealAds::INTERSTITIAL)
 
 #### Setting Interstitial callbacks
 
@@ -203,7 +203,7 @@ virtual void onInterstitialClosed();
 Call
 
 ```
-Appodeal::setInterstitialCallback(this);
+AppodealAds::setInterstitialCallback(this);
 ````
 
 Don't forget to realize all methods.
@@ -234,7 +234,7 @@ virtual void onSkippableVideoClosed(bool isFinished);
 Call
 
 ```
-Appodeal::setSkippableVideoCallback(this);
+AppodealAds::setSkippableVideoCallback(this);
 ````
 
 Don't forget to realize all methods.
@@ -265,7 +265,7 @@ virtual void onRewardedVideoClosed (bool isFinished);
 Call
 
 ```
-Appodeal::setRewardedVideoCallback(this);
+AppodealAds::setRewardedVideoCallback(this);
 ````
 
 Don't forget to realize all methods.
@@ -296,7 +296,7 @@ virtual void onNonSkippableVideoClosed(bool isFinished);
 Call
 
 ```
-Appodeal::setNonSkippableVideoCallback(this);
+AppodealAds::setNonSkippableVideoCallback(this);
 ````
 
 Don't forget to realize all methods.
@@ -326,7 +326,7 @@ virtual void onBannerClicked();
 Call
 
 ```
-Appodeal::setBannerCallback(this);
+AppodealAds::setBannerCallback(this);
 ````
 
 Don't forget to realize all methods.
@@ -334,61 +334,61 @@ Don't forget to realize all methods.
 #### Manual ad caching
 
 ```
-Appodeal::cache(adTypes);
+AppodealAds::cache(adTypes);
 ```
 
 You should disable automatic caching before SDK initialization using setAutoCache(adTypes, false).
 
-To cache interstitial use Appodeal::cache(Appodeal::INTERSTITIAL)
+To cache interstitial use AppodealAds::cache(AppodealAds::INTERSTITIAL)
 
-To cache skippable video use Appodeal::cache(Appodeal::SKIPPABLE_VIDEO)
+To cache skippable video use AppodealAds::cache(AppodealAds::SKIPPABLE_VIDEO)
 
-To cache rewarded video use Appodeal::cache(Appodeal::REWARDED_VIDEO)
+To cache rewarded video use AppodealAds::cache(AppodealAds::REWARDED_VIDEO)
 
-To cache non-skippable video use Appodeal::cache(Appodeal::NON_SKIPPABLE_VIDEO)
+To cache non-skippable video use AppodealAds::cache(AppodealAds::NON_SKIPPABLE_VIDEO)
 
-To cache interstitial and video use Appodeal::cache(Appodeal::INTERSTITIAL | Appodeal::SKIPPABLE_VIDEO)
+To cache interstitial and video use AppodealAds::cache(AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO)
 
 #### Enabling or disabling automatic caching
 
 ```
-Appodeal::setAutoCache(adTypes, false);
+AppodealAds::setAutoCache(adTypes, false);
 ```
 
 Should be used before SDK initialization
 
-To disable automatic caching for interstitials use Appodeal::setAutoCache(Appodeal::INTERSTITIAL, false)
+To disable automatic caching for interstitials use AppodealAds::setAutoCache(AppodealAds::INTERSTITIAL, false)
 
-To disable automatic caching for skippable videos use Appodeal::setAutoCache(Appodeal::SKIPPABLE_VIDEO, false)
+To disable automatic caching for skippable videos use AppodealAds::setAutoCache(AppodealAds::SKIPPABLE_VIDEO, false)
 
-To disable automatic caching for rewarded videos use Appodeal::setAutoCache(Appodeal::REWARDED_VIDEO, false)
+To disable automatic caching for rewarded videos use AppodealAds::setAutoCache(AppodealAds::REWARDED_VIDEO, false)
 
-To disable automatic caching for non-skippable videos use Appodeal::setAutoCache(Appodeal::NON_SKIPPABLE_VIDEO, false)
+To disable automatic caching for non-skippable videos use AppodealAds::setAutoCache(AppodealAds::NON_SKIPPABLE_VIDEO, false)
 
 #### Triggering onLoaded callback twice
 
 ```
-Appodeal::setOnLoadedTriggerBoth(adTypes, true);
+AppodealAds::setOnLoadedTriggerBoth(adTypes, true);
 ```
 
 Currently supported only for interstitials
 
-setOnLoadedTriggerBoth(Appodeal::INTERSTITIAL, false) - onInterstitialLoaded will trigger only when normal ad was loaded (default).
+setOnLoadedTriggerBoth(AppodealAds::INTERSTITIAL, false) - onInterstitialLoaded will trigger only when normal ad was loaded (default).
 
-setOnLoadedTriggerBoth(Appodeal::INTERSTITIAL, true) - onInterstitialLoaded will trigger twice, both when precache and normal ad were loaded.
+setOnLoadedTriggerBoth(AppodealAds::INTERSTITIAL, true) - onInterstitialLoaded will trigger twice, both when precache and normal ad were loaded.
 
 Should be used before SDK initialization.
 
 #### Disabling networks
 
 ```
-Appodeal::disableNetwork("networkName");
+AppodealAds::disableNetwork("networkName");
 ```
 
 Also, it’s possible to disable network only for specific ad types.
 
 ```
-Appodeal::disableNetwork("networkName", adTypes);
+AppodealAds::disableNetwork("networkName", adTypes);
 ```
 
 Available parameters: "amazon_ads", "applovin", "chartboost", "mopub", "unity_ads", "mailru", "facebook", "adcolony", "vungle", "yandex", "startapp", "avocarrot", "flurry", "pubnative", "cheetah", "inner-active", "revmob".
@@ -399,7 +399,7 @@ Should be used before SDK initialization
 
 First of all, it's required  to disable network, which you want to remove.
 ```
-Appodeal::disableNetwork("startapp");
+AppodealAds::disableNetwork("startapp");
 ```
 
 After that, you can remove unused jar files from libs folder of Appodeal plugin. Some networks are included in appodeal-1.15.5.jar file. You can open it via an archiver and remove unused dex files from assets/dex folder.
@@ -409,7 +409,7 @@ After that, you can remove unused jar files from libs folder of Appodeal plugin.
 To disable toast messages ACCESS_COARSE_LOCATION permission is missing use the following method:
 
 ```
-Appodeal::disableLocationPermissionCheck();
+AppodealAds::disableLocationPermissionCheck();
 ```
 
 Should be used before SDK initialization.
@@ -421,7 +421,7 @@ Should be used before SDK initialization.
 To disable toast messages WRITE_EXTERNAL_STORAGE permission is missing use the following method:
 
 ```
-Appodeal::disableWriteExternalStoragePermissionCheck();
+AppodealAds::disableWriteExternalStoragePermissionCheck();
 ```
 
 Should be used before SDK initialization.
@@ -431,13 +431,13 @@ Should be used before SDK initialization.
 #### Tracking in-app purchase
 
 ```
-Appodeal::trackInAppPurchase(currencyCode, amount);
+AppodealAds::trackInAppPurchase(currencyCode, amount);
 ```
 
 Tracks in-app purchase information and sends info to our servers for analytics. Example:
 
 ```
-Appodeal::trackInAppPurchase("USD", 5);
+AppodealAds::trackInAppPurchase("USD", 5);
 ```
 
 ### Setting user data.
@@ -450,13 +450,13 @@ Set the age of the user
 Positive integer value.
 
 ```
-Appodeal::setAge(25);
+AppodealAds::setAge(25);
 ```
 
 Set birth date
 
 ```
-Appodeal::setBirthday("17/06/1990");
+AppodealAds::setBirthday("17/06/1990");
 ```
 
 birthday in format "DD/MM/YYYY" or "MM/YYYY" or "YYYY"
@@ -464,54 +464,54 @@ birthday in format "DD/MM/YYYY" or "MM/YYYY" or "YYYY"
 Set user email
 
 ```
-Appodeal::setEmail("hi@appodeal.com");
+AppodealAds::setEmail("hi@appodeal.com");
 ```
 
 Specify gender of the user
 
 ```
-Appodeal::setGender(Appodeal::Gender::MALE);
+AppodealAds::setGender(AppodealAds::Gender::MALE);
 ```
 
-Possible values: Appodeal::Gender::MALE, Appodeal::Gender::FEMALE, Appodeal::Gender::OTHER.
+Possible values: AppodealAds::Gender::MALE, AppodealAds::Gender::FEMALE, AppodealAds::Gender::OTHER.
 
 Set interests of the user
 
 ```
-Appodeal::setInterests("reading, games, movies, snowboarding");
+AppodealAds::setInterests("reading, games, movies, snowboarding");
 ```
 
 Specify occupation of the user
 
 ```
-Appodeal::setOccupation(Appodeal::Occupation::OCCUPATION_OTHER);
+AppodealAds::setOccupation(AppodealAds::Occupation::OCCUPATION_OTHER);
 ```
 
-Possible values: Appodeal::Occupation::WORK, Appodeal::Occupation::UNIVERSITY, Appodeal::Occupation::SCHOOL, Appodeal::Occupation::OCCUPATION_OTHER
+Possible values: AppodealAds::Occupation::WORK, AppodealAds::Occupation::UNIVERSITY, AppodealAds::Occupation::SCHOOL, AppodealAds::Occupation::OCCUPATION_OTHER
 
 Specify marital status of the user
 
 ```
-Appodeal::setRelation(Appodeal::Relation::DATING);
+AppodealAds::setRelation(AppodealAds::Relation::DATING);
 ```
 
-Possible values: Appodeal::Relation::DATING, Appodeal::Relation::ENGAGED, Appodeal::Relation::MARRIED, Appodeal::Relation::SEARCHING, Appodeal::Relation::SINGLE, Appodeal::Relation::RELATION_OTHER
+Possible values: AppodealAds::Relation::DATING, AppodealAds::Relation::ENGAGED, AppodealAds::Relation::MARRIED, AppodealAds::Relation::SEARCHING, AppodealAds::Relation::SINGLE, AppodealAds::Relation::RELATION_OTHER
 
 Set drinking habits of the user
 
 ```
-Appodeal::setAlcohol(Appodeal::Alcohol::ALCOHOL_POSITIVE);
+AppodealAds::setAlcohol(AppodealAds::Alcohol::ALCOHOL_POSITIVE);
 ```
 
-Possible values:Appodeal::Alcohol::ALCOHOL_NEGATIVE, Appodeal::Alcohol::ALCOHOL_NEUTRAL, Appodeal::Alcohol::ALCOHOL_POSITIVE.
+Possible values:AppodealAds::Alcohol::ALCOHOL_NEGATIVE, AppodealAds::Alcohol::ALCOHOL_NEUTRAL, AppodealAds::Alcohol::ALCOHOL_POSITIVE.
 
 User attitude to smoking
 
 ```
-Appodeal::setSmoking(Appodeal::Smoking::SMOKING_NEGATIVE);
+AppodealAds::setSmoking(AppodealAds::Smoking::SMOKING_NEGATIVE);
 ```
 
-Possible values: Appodeal::Smoking::SMOKING_NEGATIVE, Appodeal::Smoking::SMOKING_POSITIVE, Appodeal::Smoking::SMOKING_NEUTRAL.
+Possible values: AppodealAds::Smoking::SMOKING_NEGATIVE, AppodealAds::Smoking::SMOKING_POSITIVE, AppodealAds::Smoking::SMOKING_NEUTRAL.
 
 ## Changelog
 
