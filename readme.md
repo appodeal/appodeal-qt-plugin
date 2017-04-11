@@ -2,7 +2,7 @@
 
 ## Download SDK
 
-You can download Appodeal plugin for QT here.
+You can download Appodeal plugin for QT [![](https://img.shields.io/badge/download-here-green.svg)](https://s3-us-west-1.amazonaws.com/appodeal-qt/Appodeal-Qt-110417-2.0.0.zip) .
 
 Minimum OS requirements: Android API level 9 (Android OS 2.3).
 
