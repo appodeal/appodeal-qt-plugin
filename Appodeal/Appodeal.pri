@@ -21,11 +21,7 @@ HEADERS  += \
     $$PWD/appodealios.h
 
 android {
-    QT += androidextras
-    QT += gui-private
-	
-    DEFINES += PACKAGE_NAME=\\\"com/appodeal/test/AppodealActivity\\\"
-    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+    QT += androidextras gui-private
 }
 
 ios {

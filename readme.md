@@ -22,12 +22,29 @@ include(Appodeal/Appodeal.pri)
 
 ### Android Integration
 
-Copy TARGET value from *.pro file, open Appodeal/android/AndroidManifest.xml in text editor, find the following line:
-```
-<meta-data android:name="android.app.lib_name" android:value="AppodealDemo"/>
-```
-And replace AppodealDemo with your TARGET value.
+Copy Appodeal/android directory to your AndroidManifest.xml location and rename it to AppodealLib. If you don't have custom AndroidManifest.xml file, you can create it from QT Creator: Projects -> Build -> Build Android APK -> Create Templates
 
+#### If you use ant build system
+Create project.properties file if it doesn't exists in your AndroidManifest.xml location and add the following lines:
+```
+android.library.reference.1=./AppodealLib
+manifestmerger.enabled=true
+```
+
+#### If you use gradle build system
+Cteate settings.gradle file if it doesn't exist in your AndroidManifest.xml location and add the following lines:
+```
+include ':AppodealLib'
+include ':cheetah-mobile-gradle'
+project(':cheetah-mobile-gradle').projectDir = new File('AppodealLib/cheetah-mobile-gradle')
+```
+Then open build.gradle file from the same location, find dependencies section (which is not inside of buildscript section) and add AppodealLib project. The final result should looks something like this:
+```
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile project(':AppodealLib')
+}
+```
 ### iOS Integration
 
 After building iOS Project you will get error: `Appodeal.framework/Appodeal(AVHttpClient.o)' does not contain bitcode. You must rebuild it with bitcode enabled (Xcode setting ENABLE_BITCODE), obtain an updated library from the vendor, or disable bitcode for this target. for architecture arm64` don't worry, just open compiled xcode project, go to `Build Settings` Set `Enable Bitcode` to `No` and remove `-fembed-bitcode-marker` flag from  `Other Linker Flags`.

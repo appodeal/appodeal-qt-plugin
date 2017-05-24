@@ -141,7 +141,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
     qDebug("Got enviroment");
 
     // search for Java class which declares the native methods
-    jclass javaClass = env->FindClass(PACKAGE_NAME);
+    jclass javaClass = env->FindClass("com/appodeal/plugin/QTAppodeal");
     if (!javaClass)
        return JNI_ERR;
 

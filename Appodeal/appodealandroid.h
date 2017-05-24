@@ -57,7 +57,7 @@ public:
 
     friend JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*);
 private:
-    QAndroidJniObject* m_Activity;
+    QAndroidJniObject* m_Appodeal;
 
     static SignalReceiver* signalReceiver;
     //Static callbacks for interaction with java

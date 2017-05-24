@@ -46,7 +46,7 @@ void MainWindow::on_initializeButton_clicked()
     AppodealAds::setRewardedVideoCallback(this);
     AppodealAds::setSkippableVideoCallback(this);
 
-    AppodealAds::initialize("722fb56678445f72fe2ec58b2fa436688b920835405d3ca6", adTypes);
+    AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
 
 void MainWindow::on_showButton_clicked()
