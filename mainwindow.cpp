@@ -32,6 +32,7 @@ void MainWindow::on_initializeButton_clicked()
     AppodealAds::setAutoCache(adTypes, autoCache);
     AppodealAds::setTesting(true);
     AppodealAds::setLogLevel(AppodealAds::LogLevel::verbose);
+    AppodealAds::disableNetwork("cheetah");
     AppodealAds::setAge(42);
     AppodealAds::setGender(AppodealAds::Gender::MALE);
     AppodealAds::setOccupation(AppodealAds::Occupation::OCCUPATION_OTHER);

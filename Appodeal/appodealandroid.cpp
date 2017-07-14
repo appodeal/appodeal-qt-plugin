@@ -113,7 +113,7 @@ void AppodealAndroid::setRewardedVideoCallback(RewardedVideoCallbacks* callbacks
 void AppodealAndroid::disableNetwork(const QString &network)
 {
     QAndroidJniObject networkS = QAndroidJniObject::fromString(network);
-    m_Appodeal->callMethod<void>("disableNetwork", "(Landroid/app/Activity;Ljava/lang/String)V",  QtAndroid::androidActivity().object<jobject>(), networkS.object<jstring>());
+    m_Appodeal->callMethod<void>("disableNetwork", "(Landroid/app/Activity;Ljava/lang/String;)V",  QtAndroid::androidActivity().object<jobject>(), networkS.object<jstring>());
 }
 
 void AppodealAndroid::disableNetwork(const QString &network, const int &adType)
