@@ -1,3 +1,3 @@
 include ':AppodealLib'
-include ':cheetah-mobile-gradle'
-project(':cheetah-mobile-gradle').projectDir = new File('AppodealLib/cheetah-mobile-gradle')
+include ':adcolony-gradle'
+project(':adcolony-gradle').projectDir = new File('AppodealLib/adcolony-gradle')

@@ -13,7 +13,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks, public SkippableVideoCallbacks
+class MainWindow : public QMainWindow, public NonSkippableVideoCallbacks, public BannerCallbacks, public InterstitialCallbacks, public RewardedVideoCallbacks
 {
     Q_OBJECT
 
@@ -38,11 +38,6 @@ public:
     virtual void onRewardedVideoShown ();
     virtual void onRewardedVideoFinished (int value, QString currency);
     virtual void onRewardedVideoClosed (bool isFinished);
-    virtual void onSkippableVideoLoaded();
-    virtual void onSkippableVideoFailedToLoad();
-    virtual void onSkippableVideoShown();
-    virtual void onSkippableVideoFinished();
-    virtual void onSkippableVideoClosed(bool isFinished);
     ~MainWindow();
 
 private slots:

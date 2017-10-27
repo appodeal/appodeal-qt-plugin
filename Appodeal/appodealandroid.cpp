@@ -81,9 +81,9 @@ void AppodealAndroid::setAutoCache(const int &adType, const bool &flag)
     m_Appodeal->callMethod<void>("setAutoCache", "(IZ)V", adType, flag);
 }
 
-void AppodealAndroid::setOnLoadedTriggerBoth(const int &adType, const bool &flag)
+void AppodealAndroid::setTriggerOnLoadedOnPrecache(const int &adType, const bool &flag)
 {
-    m_Appodeal->callMethod<void>("setOnLoadedTriggerBoth", "(IZ)V", adType, flag);
+    m_Appodeal->callMethod<void>("setTriggerOnLoadedOnPrecache", "(IZ)V", adType, flag);
 }
 void AppodealAndroid::setInterstitialCallback(InterstitialCallbacks* callback)
 {
@@ -95,12 +95,6 @@ void AppodealAndroid::setBannerCallback (BannerCallbacks *callbacks)
 {
     signalReceiver->setBannerCallback(callbacks);
     m_Appodeal->callMethod<void>("setBannerCallback", "()V");
-}
-
-void AppodealAndroid::setSkippableVideoCallback(SkippableVideoCallbacks* callbacks)
-{
-    signalReceiver->setSkippableVideoCallback(callbacks);
-    m_Appodeal->callMethod<void>("setSkippableVideoCallback", "()V");
 }
 
 void AppodealAndroid::setRewardedVideoCallback(RewardedVideoCallbacks* callbacks)
@@ -141,39 +135,26 @@ void AppodealAndroid::setNonSkippableVideoCallback (NonSkippableVideoCallbacks *
 void AppodealAndroid::setAge (const int &age){
     m_Appodeal->callMethod<void>("setAge", "(Landroid/app/Activity;I)V", QtAndroid::androidActivity().object<jobject>(), age);
 }
-void AppodealAndroid::setBirthday(const QString &bDay){
-    QAndroidJniObject bDayS = QAndroidJniObject::fromString(bDay);
-    m_Appodeal->callMethod<void>("setBirthday", "(Landroid/app/Activity;Ljava/lang/String;)V", QtAndroid::androidActivity().object<jobject>(), bDayS.object<jstring>());
-}
-void AppodealAndroid::setEmail(const QString &email){
-    QAndroidJniObject emailS = QAndroidJniObject::fromString(email);
-    m_Appodeal->callMethod<void>("setEmail", "(Landroid/app/Activity;Ljava/lang/String;)V", QtAndroid::androidActivity().object<jobject>(), emailS.object<jstring>());
-}
 void AppodealAndroid::setGender(const int &gender){
     m_Appodeal->callMethod<void>("setGender", "(Landroid/app/Activity;I)V", QtAndroid::androidActivity().object<jobject>(), gender);
-}
-void AppodealAndroid::setInterests(const QString &interests){
-    QAndroidJniObject interestsS = QAndroidJniObject::fromString(interests);
-    m_Appodeal->callMethod<void>("setInterests", "(Landroid/app/Activity;Ljava/lang/String;)V", QtAndroid::androidActivity().object<jobject>(), interestsS.object<jstring>());
-}
-void AppodealAndroid::setOccupation(const int &occupation){
-    m_Appodeal->callMethod<void>("setOccupation", "(Landroid/app/Activity;I)V", QtAndroid::androidActivity().object<jobject>(), occupation);
-}
-void AppodealAndroid::setRelation(const int &relation){
-    m_Appodeal->callMethod<void>("setRelation", "(Landroid/app/Activity;I)V", QtAndroid::androidActivity().object<jobject>(), relation);
-}
-void  AppodealAndroid::setAlcohol(const int &alcohol){
-    m_Appodeal->callMethod<void>("setAlcohol", "(Landroid/app/Activity;I)V", QtAndroid::androidActivity().object<jobject>(), alcohol);
-}
-void AppodealAndroid::setSmoking(const int &smoking){
-    m_Appodeal->callMethod<void>("setSmoking", "(Landroid/app/Activity;I)V", QtAndroid::androidActivity().object<jobject>(), smoking);
 }
 void AppodealAndroid::setUserId(const QString &userId){
     QAndroidJniObject userIdS = QAndroidJniObject::fromString(userId);
     m_Appodeal->callMethod<void>("setUserId", "(Landroid/app/Activity;Ljava/lang/String;)V", QtAndroid::androidActivity().object<jobject>(), userIdS.object<jstring>());
 }
-void AppodealAndroid::confirm(const int &adType){
-    m_Appodeal->callMethod<void>("confirm", "(I)V", adType);
+bool AppodealAndroid::canShow(const int &adType){
+    return m_Appodeal->callMethod<jboolean>("canShow", "(I)Z", adType);
+}
+
+bool AppodealAndroid::canShow(const int &adType, const QString &placement){
+    QAndroidJniObject jplacement = QAndroidJniObject::fromString(placement);
+    return m_Appodeal->callMethod<jboolean>("canShow", "(ILandroid/app/Activity;Ljava/lang/String;)Z", adType, jplacement.object<jstring>());
+}
+void AppodealAndroid::setChildDirectedTreatment(const bool &flag){
+    m_Appodeal->callMethod<void>("setChildDirectedTreatment", "(Z)V", flag);
+}
+void AppodealAndroid::muteVideosIfCallsMuted(const bool &flag){
+    m_Appodeal->callMethod<void>("muteVideosIfCallsMuted", "(Z)V", flag);
 }
 void AppodealAndroid::disableWriteExternalStoragePermissionCheck(){
     m_Appodeal->callMethod<void>("disableWriteExternalStoragePermissionCheck", "(V)V");
@@ -268,21 +249,6 @@ void AppodealAndroid::onRewardedVideoFinished (JNIEnv *env, jobject, jint value,
 }
 void AppodealAndroid::onRewardedVideoClosed (JNIEnv *, jobject, jboolean isFinished){
     QMetaObject::invokeMethod(signalReceiver, "onRewardedVideoClosed", Qt::QueuedConnection, Q_ARG(bool, (bool)isFinished));
-}
-void AppodealAndroid::onSkippableVideoLoaded(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoLoaded", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoFailedToLoad(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoFailedToLoad", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoShown(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoShown", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoFinished(){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoFinished", Qt::QueuedConnection);
-}
-void AppodealAndroid::onSkippableVideoClosed(JNIEnv *, jobject, jboolean  isFinished){
-    QMetaObject::invokeMethod(signalReceiver, "onSkippableVideoClosed", Qt::QueuedConnection, Q_ARG(bool, (bool)isFinished));
 }
 
 #endif

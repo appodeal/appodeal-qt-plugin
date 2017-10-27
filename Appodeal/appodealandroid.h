@@ -23,10 +23,9 @@ public:
     virtual bool isPrecache (const int &adType);
     virtual void cache (const int &adType);
     virtual void setAutoCache (const int &adType, const bool &flag);
-    virtual void setOnLoadedTriggerBoth (const int &adType, const bool &flag);
+    virtual void setTriggerOnLoadedOnPrecache (const int &adType, const bool &flag);
     virtual void setInterstitialCallback (InterstitialCallbacks* callback);
     virtual void setBannerCallback (BannerCallbacks* callbacks);
-    virtual void setSkippableVideoCallback (SkippableVideoCallbacks* callbacks);
     virtual void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks);
     virtual void disableNetwork(const QString &network);
     virtual void disableNetwork(const QString &network, const int &adType);
@@ -35,16 +34,12 @@ public:
 
     virtual void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks);
     virtual void setAge (const int &age);
-    virtual void setBirthday(const QString &bDay);
-    virtual void setEmail(const QString &email);
     virtual void setGender(const int &gender);
-    virtual void setInterests(const QString &interests);
-    virtual void setOccupation(const int &occupation);
-    virtual void setRelation(const int &relation);
-    virtual void setAlcohol(const int &alcohol);
-    virtual void setSmoking(const int &smoking);
     virtual void setUserId(const QString &userId);
-    virtual void confirm(const int &adType);
+    virtual bool canShow(const int &adType);
+    virtual bool canShow(const int &adType, const QString &placement);
+    virtual void setChildDirectedTreatment(const bool &flag);
+    virtual void muteVideosIfCallsMuted(const bool &flag);
     virtual void disableWriteExternalStoragePermissionCheck();
     virtual void requestAndroidMPermissions(/*callback*/);
     virtual void set728x90Banners(const bool &flag);

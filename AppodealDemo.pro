@@ -23,6 +23,7 @@ MOBILITY =
 
 android {
 	ANDROID_PACKAGE_SOURCE_DIR += $$PWD/android
+        APP_ABI = armeabi-v7a armeabi mips x86
 }
 include(Appodeal/Appodeal.pri)
 

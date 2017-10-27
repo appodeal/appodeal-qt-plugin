@@ -6,7 +6,6 @@
 #include "bannercallbacks.h"
 #include "interstitialcallbacks.h"
 #include "rewardedvideocallbacks.h"
-#include "skippablevideocallbacks.h"
 
 class AppodealInterface
 {
@@ -21,10 +20,9 @@ public:
     virtual bool isPrecache (const int &adType) = 0;
     virtual void cache (const int &adType) = 0;
     virtual void setAutoCache (const int &adType, const bool &flag) = 0;
-    virtual void setOnLoadedTriggerBoth (const int &adType, const bool &flag) = 0;
+    virtual void setTriggerOnLoadedOnPrecache (const int &adType, const bool &flag) = 0;
     virtual void setInterstitialCallback (InterstitialCallbacks* callback) = 0;
     virtual void setBannerCallback (BannerCallbacks* callbacks) = 0;
-    virtual void setSkippableVideoCallback (SkippableVideoCallbacks* callbacks) = 0;
     virtual void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks) = 0;
     virtual void disableNetwork(const QString &network) = 0;
     virtual void disableNetwork(const QString &network, const int &adType) = 0;
@@ -34,16 +32,12 @@ public:
     //new methods
     virtual void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks) = 0;
     virtual void setAge (const int &age) = 0;
-    virtual void setBirthday(const QString &bDay) = 0;
-    virtual void setEmail(const QString &email) = 0;
     virtual void setGender(const int &gender) = 0;
-    virtual void setInterests(const QString &interests) = 0;
-    virtual void setOccupation(const int &occupation) = 0;
-    virtual void setRelation(const int &relation) = 0;
-    virtual void setAlcohol(const int &alcohol) = 0;
-    virtual void setSmoking(const int &smoking) = 0;
-    virtual void setUserId(const QString &userId) =0 ;
-    virtual void confirm(const int &adType) = 0;
+    virtual void setUserId(const QString &userId) =0;
+    virtual bool canShow(const int &adType) =0;
+    virtual bool canShow(const int &adType, const QString &placement) =0;
+    virtual void setChildDirectedTreatment(const bool &flag) =0;
+    virtual void muteVideosIfCallsMuted(const bool &flag) =0;
     virtual void disableWriteExternalStoragePermissionCheck() = 0;
     virtual void requestAndroidMPermissions(/*callback*/) = 0;
     virtual void set728x90Banners(const bool &flag) = 0;

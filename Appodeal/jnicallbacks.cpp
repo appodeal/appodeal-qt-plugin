@@ -105,31 +105,6 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
             "onNonSkippableVideoClosed",
             "(Z)V",
             (void *) AppodealAndroid::onNonSkippableVideoClosed
-        },
-        {
-            "onSkippableVideoLoaded",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoLoaded
-        },
-        {
-            "onSkippableVideoFailedToLoad",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoFailedToLoad
-        },
-        {
-            "onSkippableVideoShown",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoShown
-        },
-        {
-            "onSkippableVideoFinished",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoFinished
-        },
-        {
-            "onSkippableVideoClosed",
-            "(Z)V",
-            (void *) AppodealAndroid::onSkippableVideoClosed
         }
 
     };

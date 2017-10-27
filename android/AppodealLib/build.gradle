@@ -8,7 +8,7 @@ dependencies {
 	compile ('com.google.android.gms:play-services-location:9.6.1'){
         exclude module: 'support-v4'
     }
-	compile project(':cheetah-mobile-gradle')
+	compile project(':adcolony-gradle')
 }
 
 android {

@@ -17,31 +17,51 @@ import com.appodeal.ads.BannerCallbacks;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.NonSkippableVideoCallbacks;
 import com.appodeal.ads.RewardedVideoCallbacks;
-import com.appodeal.ads.SkippableVideoCallbacks;
 import com.appodeal.ads.UserSettings;
 
 
 public class QTAppodeal{
 
     public static UserSettings userSettings;
+	private boolean showSucceded;
 
     public void initialize (Activity a_activity, String appKey, int adType)
     {
+		Appodeal.setFramework("qt", "2.1.4");
         Appodeal.initialize(a_activity, appKey, adType);
     }
 	
-    public boolean show(Activity a_activity, int adType)
+    public boolean show(final Activity a_activity, final int adType)
     {
-        return Appodeal.show(a_activity, adType);
+		showSucceded = false;
+		a_activity.runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				showSucceded = Appodeal.show(a_activity, adType);
+			}
+		});
+        return showSucceded;
     }
 	
-	public boolean show(Activity a_activity, int adType, String placement){
-		return Appodeal.show(a_activity, adType, placement);
+	public boolean show(final Activity a_activity, final int adType, final String placement){
+		showSucceded = false;
+		a_activity.runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				showSucceded = Appodeal.show(a_activity, adType, placement);
+			}
+		});
+		return showSucceded;
 	}
 
-    public void hide (Activity a_activity, int adType)
+    public void hide (final Activity a_activity, final int adType)
     {
-        Appodeal.hide(a_activity, adType);
+		a_activity.runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				Appodeal.hide(a_activity, adType);
+			}
+		});
     }
 
     public void setTesting (boolean flag)
@@ -87,9 +107,9 @@ public class QTAppodeal{
          Appodeal.setAutoCache(adType, flag);
     }
 
-    public void setOnLoadedTriggerBoth (int adType, boolean flag)
+    public void setTriggerOnLoadedOnPrecache (int adType, boolean flag)
     {
-        Appodeal.setOnLoadedTriggerBoth(adType, flag);
+        Appodeal.setTriggerOnLoadedOnPrecache(adType, flag);
     }
 
     public static native void onInterstitialLoaded(boolean isPrecache);
@@ -133,29 +153,6 @@ public class QTAppodeal{
             public void onBannerShown(){QTAppodeal.onBannerShown();}
             @Override
             public void onBannerClicked(){QTAppodeal.onBannerClicked();}
-          });
-    }
-
-    public static native void onSkippableVideoLoaded ();
-    public static native void onSkippableVideoFailedToLoad ();
-    public static native void onSkippableVideoShown ();
-    public static native void onSkippableVideoFinished ();
-    public static native void onSkippableVideoClosed (boolean isFinished);
-
-    public void setSkippableVideoCallback ()
-    {
-        Appodeal.setSkippableVideoCallbacks(new SkippableVideoCallbacks() {
-			@Override
-            public void onSkippableVideoLoaded() {QTAppodeal.onSkippableVideoLoaded();}
-			@Override
-			public void onSkippableVideoFailedToLoad() {QTAppodeal.onSkippableVideoFailedToLoad();}
-			@Override
-			public void onSkippableVideoShown() {QTAppodeal.onSkippableVideoShown();}
-			@Override
-			public void onSkippableVideoFinished() {QTAppodeal.onSkippableVideoFinished();}
-			@Override
-			public void onSkippableVideoClosed(boolean isFinished) {QTAppodeal.onSkippableVideoClosed(isFinished);}
-
           });
     }
 	
@@ -221,6 +218,22 @@ public class QTAppodeal{
     {
         Appodeal.trackInAppPurchase(a_activity, amount, currencyCode);
     }
+	
+	public boolean canShow(int adType){
+		return Appodeal.canShow(adType);
+	}
+	
+	public boolean canShow(int adType, String placement){
+		return Appodeal.canShow(adType, placement);
+	}
+	
+	public void setChildDirectedTreatment(boolean flag){
+		Appodeal.setChildDirectedTreatment(flag);
+	}
+	
+	public void muteVideosIfCallsMuted(boolean flag){
+		Appodeal.muteVideosIfCallsMuted(flag);
+	}
 
     private UserSettings getUserSettings (Activity a_activity)
     {
@@ -232,16 +245,6 @@ public class QTAppodeal{
     public void setAge (Activity a_activity, int age)
     {
         getUserSettings(a_activity).setAge(age);
-    }
-
-    public void setBirthday (Activity a_activity, String day)
-    {
-        getUserSettings(a_activity).setBirthday(day);
-    }
-
-    public void setEmail (Activity a_activity, String email)
-    {
-        getUserSettings(a_activity).setEmail(email);
     }
 
     public void setGender (Activity a_activity, int gender)
@@ -259,94 +262,9 @@ public class QTAppodeal{
                 break;
         }
     }
-
-    public void setInterests (Activity a_activity, String interest)
-    {
-        getUserSettings(a_activity).setInterests(interest);
-    }
-
-    public void setOccupation (Activity a_activity, int occupation)
-    {
-        switch (occupation)
-        {
-            case 0:
-                getUserSettings(a_activity).setOccupation(UserSettings.Occupation.WORK);
-                break;
-            case 1:
-                getUserSettings(a_activity).setOccupation(UserSettings.Occupation.UNIVERSITY);
-                break;
-            case 2:
-                getUserSettings(a_activity).setOccupation(UserSettings.Occupation.SCHOOL);
-                break;
-            case 3:
-                getUserSettings(a_activity).setOccupation(UserSettings.Occupation.OTHER);
-                break;
-        }
-    }
-
-    public void setRelation (Activity a_activity, int relation)
-    {
-        switch (relation)
-        {
-            case 0:
-                getUserSettings(a_activity).setRelation(UserSettings.Relation.DATING);
-                break;
-            case 1:
-                getUserSettings(a_activity).setRelation(UserSettings.Relation.ENGAGED);
-                break;
-            case 2:
-                getUserSettings(a_activity).setRelation(UserSettings.Relation.MARRIED);
-                break;
-            case 3:
-                getUserSettings(a_activity).setRelation(UserSettings.Relation.SEARCHING);
-                break;
-            case 4:
-                getUserSettings(a_activity).setRelation(UserSettings.Relation.SINGLE);
-                break;
-            case 5:
-                getUserSettings(a_activity).setRelation(UserSettings.Relation.OTHER);
-                break;
-        }
-    }
-
-    public void setAlcohol (Activity a_activity, int alcohol)
-    {
-        switch (alcohol)
-        {
-            case 0:
-                getUserSettings(a_activity).setAlcohol(UserSettings.Alcohol.NEGATIVE);
-                break;
-            case 1:
-                getUserSettings(a_activity).setAlcohol(UserSettings.Alcohol.NEUTRAL);
-                break;
-            case 2:
-                getUserSettings(a_activity).setAlcohol(UserSettings.Alcohol.POSITIVE);
-                break;
-        }
-    }
-
-    public void setSmoking (Activity a_activity, int smoking)
-    {
-        switch (smoking)
-        {
-            case 0:
-                getUserSettings(a_activity).setSmoking(UserSettings.Smoking.NEGATIVE);
-                break;
-            case 1:
-                getUserSettings(a_activity).setSmoking(UserSettings.Smoking.NEUTRAL);
-                break;
-            case 2:
-                getUserSettings(a_activity).setSmoking(UserSettings.Smoking.POSITIVE);
-                break;
-        }
-    }
 	
 	public void setUserId(Activity a_activity, String userId){
 		getUserSettings(a_activity).setUserId(userId);
-	}
-	
-	public void confirm(int adType){
-		Appodeal.confirm(adType);
 	}
 	
 	public void disableWriteExternalStoragePermissionCheck(){

@@ -7,14 +7,9 @@ class AppodealAds
 {
 public:
     enum Gender{MALE=0, FFEMALE=1, OTHER=2};
-    enum Occupation{WORK=0, UNIVERSITY=1, SCHOOL=2, OCCUPATION_OTHER=3};
-    enum Relation{DATING=0, ENGAGED=1, MARRIED=2, SEARCHING=3, SINGLE=4, RELATION_OTHER=5};
-    enum Smoking{SMOKING_NEGATIVE=0, SMOKING_NEUTRAL=1, SMOKING_POSITIVE=2};
-    enum Alcohol{ALCOHOL_NEGATIVE=0, ALCOHOL_NEUTRAL=1, ALCOHOL_POSITIVE=2};
     enum LogLevel{none=2, debug=0, verbose=1};
     static const int NONE;
     static const int INTERSTITIAL;
-    static const int SKIPPABLE_VIDEO;
     static const int BANNER;
     static const int BANNER_BOTTOM;
     static const int BANNER_TOP;
@@ -31,10 +26,9 @@ public:
     static bool isPrecache (const int &adType);
     static void cache (const int &adType);
     static void setAutoCache (const int &adType, const bool &flag);
-    static void setOnLoadedTriggerBoth (const int &adType, const bool &flag);
+    static void setTriggerOnLoadedOnPrecache (const int &adType, const bool &flag);
     static void setInterstitialCallback (InterstitialCallbacks* callback);
     static void setBannerCallback (BannerCallbacks* callbacks);
-    static void setSkippableVideoCallback (SkippableVideoCallbacks* callbacks);
     static void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks);
     static void disableNetwork(const QString &network);
     static void disableNetwork(const QString &network, const int &adType);
@@ -43,16 +37,12 @@ public:
 
     static void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks);
     static void setAge (const int &age);
-    static void setBirthday(const QString &bDay);
-    static void setEmail(const QString &email);
     static void setGender(const Gender &gender);
-    static void setInterests(const QString &interests);
-    static void setOccupation(const Occupation &occupation);
-    static void setRelation(const Relation &relation);
-    static void setAlcohol(const Alcohol &alcohol);
-    static void setSmoking(const Smoking &smoking);
     static void setUserId(const QString &userId);
-    static void confirm(const int &adType);
+    static bool canShow(const int &adType);
+    static bool canShow(const int &adType, const QString &placement);
+    static void setChildDirectedTreatment(const bool &flag);
+    static void muteVideosIfCallsMuted(const bool &flag);
     static void disableWriteExternalStoragePermissionCheck();
     static void requestAndroidMPermissions(/*callback*/);
     static void set728x90Banners(const bool &flag);

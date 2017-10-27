@@ -47,7 +47,7 @@ void AppodealUnsupported::setAutoCache(const int &adType, const bool &flag){
     (void)adType; (void)flag;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::setOnLoadedTriggerBoth(const int &adType, const bool &flag){
+void AppodealUnsupported::setTriggerOnLoadedOnPrecache(const int &adType, const bool &flag){
     (void)adType; (void)flag;
     qInfo("Appodeal disabled");
 }
@@ -56,10 +56,6 @@ void AppodealUnsupported::setInterstitialCallback(InterstitialCallbacks* callbac
     qInfo("Appodeal disabled");
 }
 void AppodealUnsupported::setBannerCallback (BannerCallbacks* callbacks){
-    (void)callbacks;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setSkippableVideoCallback(SkippableVideoCallbacks* callbacks){
     (void)callbacks;
     qInfo("Appodeal disabled");
 }
@@ -85,44 +81,32 @@ void AppodealUnsupported::setAge (const int &age){
     (void) age;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::setBirthday(const QString &bDay){
-    (void)bDay;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setEmail(const QString &email){
-    (void)email;
-    qInfo("Appodeal disabled");
-}
 void AppodealUnsupported::setGender(const int &gender){
     (void)gender;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setInterests(const QString &interests){
-    (void)interests;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setOccupation(const int &occupation){
-    (void)occupation;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setRelation(const int &relation){
-    (void)relation;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setAlcohol(const int &alcohol){
-    (void)alcohol;
-    qInfo("Appodeal disabled");
-}
-void AppodealUnsupported::setSmoking(const int &smoking){
-    (void)smoking;
     qInfo("Appodeal disabled");
 }
 void AppodealUnsupported::setUserId(const QString &userId){
     (void)userId;
     qInfo("Appodeal disabled");
 }
-void AppodealUnsupported::confirm(const int &adType){
+bool AppodealUnsupported::canShow(const int &adType){
     (void)adType;
+    qInfo("Appodeal disabled");
+    return false;
+}
+bool AppodealUnsupported::canShow(const int &adType, const QString &placement){
+    (void)adType;
+    (void)placement;
+    qInfo("Appodeal disabled");
+    return false;
+}
+void AppodealUnsupported::setChildDirectedTreatment(const bool &flag){
+    (void)flag;
+    qInfo("Appodeal disabled");
+}
+
+void AppodealUnsupported::muteVideosIfCallsMuted(const bool &flag){
+    (void)flag;
     qInfo("Appodeal disabled");
 }
 void AppodealUnsupported::disableWriteExternalStoragePermissionCheck(){qInfo("Appodeal disabled");}
