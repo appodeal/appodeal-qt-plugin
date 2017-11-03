@@ -47,6 +47,7 @@ public:
     virtual void setCustomRule(const QString &name, const int &value) = 0;
     virtual void setCustomRule(const QString &name, const bool &value) = 0;
     virtual void setCustomRule(const QString &name, const QString &value) = 0;
+    virtual void destroy(const int &adTypes) = 0;
 };
 
 #endif // APPODEALINTERFACE

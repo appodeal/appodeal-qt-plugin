@@ -139,4 +139,8 @@ void AppodealUnsupported::setCustomRule(const QString &name, const QString &valu
     (void)name; (void)value;
     qInfo("Appodeal disabled");
 }
+void AppodealUnsupported::destroy(const int &adTypes){
+    (void)adTypes;
+    qInfo("Appodeal disabled");
+}
 AppodealUnsupported::~AppodealUnsupported(){}

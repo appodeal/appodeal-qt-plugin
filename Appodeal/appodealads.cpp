@@ -162,3 +162,7 @@ void AppodealAds::setCustomRule(const QString &name, const bool &value){
 void AppodealAds::setCustomRule(const QString &name, const QString &value){
     AppodealAds::getInstance()->setCustomRule(name, value);
 }
+
+void AppodealAds::destroy(const int &adTypes){
+    AppodealAds::getInstance()->destroy(adTypes);
+}

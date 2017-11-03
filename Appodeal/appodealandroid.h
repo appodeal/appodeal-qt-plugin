@@ -49,6 +49,7 @@ public:
     virtual void setCustomRule(const QString &name, const int &value);
     virtual void setCustomRule(const QString &name, const bool &value);
     virtual void setCustomRule(const QString &name, const QString &value);
+    virtual void destroy(const int &adTypes);
 
     friend JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*);
 private:

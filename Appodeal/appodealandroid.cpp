@@ -189,6 +189,10 @@ void AppodealAndroid::setCustomRule(const QString &name, const QString &value){
     m_Appodeal->callMethod<void>("setCustomRule", "(Ljava/lang/String;Ljava/lang/String;)V", nameS.object<jstring>(), valueS.object<jstring>());
 }
 
+void AppodealAndroid::destroy(const int &adTypes){
+    m_Appodeal->callMethod<void>("destroy", "(I)V", adTypes);
+}
+
 //Callbacks for interaction with java
 void AppodealAndroid::onNonSkippableVideoLoaded(){
     QMetaObject::invokeMethod(signalReceiver, "onNonSkippableVideoLoaded", Qt::QueuedConnection);

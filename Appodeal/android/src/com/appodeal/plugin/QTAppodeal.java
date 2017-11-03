@@ -302,5 +302,9 @@ public class QTAppodeal{
 	public void setSmartBanners(boolean flag){
 		Appodeal.setSmartBanners(flag);
 	}
+	
+	public void destroy(int adTypes){
+		Appodeal.destroy(adTypes);
+	}
 }
 

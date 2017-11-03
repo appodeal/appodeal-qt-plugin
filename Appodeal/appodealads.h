@@ -52,6 +52,7 @@ public:
     static void setCustomRule(const QString &name, const int &value);
     static void setCustomRule(const QString &name, const bool &value);
     static void setCustomRule(const QString &name, const QString &value);
+    static void destroy(const int &adTypes);
 
 private:
     static AppodealInterface* appodeal;

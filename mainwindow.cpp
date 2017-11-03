@@ -45,7 +45,7 @@ void MainWindow::on_initializeButton_clicked()
     AppodealAds::setInterstitialCallback(this);
     AppodealAds::setRewardedVideoCallback(this);
 
-    AppodealAds::initialize("11323a3d6c632529bcbe80d738c44be9935313d1e77e1808", adTypes);
+    AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
 
 void MainWindow::on_showButton_clicked()
@@ -66,6 +66,7 @@ void MainWindow::on_isLoadedButton_clicked()
 void MainWindow::on_hideButton_clicked()
 {
     AppodealAds::hide(getRealAdTypes());
+    AppodealAds::destroy(getRealAdTypes());
 }
 
 void MainWindow::on_cacheButton_clicked()
