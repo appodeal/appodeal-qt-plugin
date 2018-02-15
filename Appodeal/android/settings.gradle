@@ -1,1 +1,2 @@
 include ':adcolony-gradle'
+include ':mmedia-gradle'
