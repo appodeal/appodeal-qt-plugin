@@ -8,6 +8,7 @@
 #include "Appodeal/interstitialcallbacks.h"
 #include "Appodeal/rewardedvideocallbacks.h"
 #include "Appodeal/skippablevideocallbacks.h"
+#include <QMediaPlayer>
 
 namespace Ui {
 class MainWindow;
@@ -54,6 +55,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     int getRealAdTypes();
+    QMediaPlayer *player;
 };
 
 #endif // MAINWINDOW_H

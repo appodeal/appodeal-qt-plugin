@@ -17,6 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
     Pal.setColor(QPalette::Background, Qt::red);
     setAutoFillBackground(true);
     setPalette(Pal);
+    player = new QMediaPlayer;
+    player->setAudioRole(QAudio::MusicRole);
+    player->setMedia(QUrl("qrc:/sounds/woody.mp3"));
+    player->setVolume(50);
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +55,9 @@ void MainWindow::on_initializeButton_clicked()
 void MainWindow::on_showButton_clicked()
 {
     AppodealAds::show(getRealAdTypes(), "main_menu");
+    if(getRealAdTypes() == AppodealAds::BANNER || getRealAdTypes() == AppodealAds::BANNER_BOTTOM || getRealAdTypes() == AppodealAds::BANNER_TOP){
+        player->play();
+    }
 }
 
 void MainWindow::on_isLoadedButton_clicked()
