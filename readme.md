@@ -6,7 +6,7 @@ You can download Appodeal plugin for QT [![](https://img.shields.io/badge/downlo
 
 Minimum OS requirements: Android API level 9 (Android OS 2.3).
 
-Android Appodeal SDK version 1.15.9
+Android Appodeal SDK version 2.1.9
 
 iOS Appodeal SDK version 1.3.9
 
@@ -22,12 +22,33 @@ include(Appodeal/Appodeal.pri)
 
 ### Android Integration
 
-Copy TARGET value from *.pro file, open Appodeal/android/AndroidManifest.xml in text editor, find the following line:
-```
-<meta-data android:name="android.app.lib_name" android:value="AppodealDemo"/>
-```
-And replace AppodealDemo with your TARGET value.
+Copy Appodeal/android directory to your AndroidManifest.xml location and rename it to AppodealLib. If you don't have custom AndroidManifest.xml file, you can create it from QT Creator: Projects -> Build -> Build Android APK -> Create Templates
 
+#### If you use ant build system
+Create project.properties file if it doesn't exists in your AndroidManifest.xml location and add the following lines:
+```
+android.library.reference.1=./AppodealLib
+manifestmerger.enabled=true
+```
+
+Also, you should open AppodealLib/AndroidManifest.xml, find "${applicationId}" text and replace it with your bundle id. Gradle will perform it automatically.
+
+#### If you use gradle build system
+Cteate settings.gradle file if it doesn't exist in your AndroidManifest.xml location and add the following lines:
+```
+include ':AppodealLib'
+include ':adcolony-gradle'
+project(':adcolony-gradle').projectDir = new File('AppodealLib/adcolony-gradle')
+include ':mmedia-gradle'
+project(':mmedia-gradle').projectDir = new File('AppodealLib/mmedia-gradle')
+```
+Then open build.gradle file from the same location, find dependencies section (which is not inside of buildscript section) and add AppodealLib project. The final result should looks something like this:
+```
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile project(':AppodealLib')
+}
+```
 ### iOS Integration
 
 After building iOS Project you will get error: `Appodeal.framework/Appodeal(AVHttpClient.o)' does not contain bitcode. You must rebuild it with bitcode enabled (Xcode setting ENABLE_BITCODE), obtain an updated library from the vendor, or disable bitcode for this target. for architecture arm64` don't worry, just open compiled xcode project, go to `Build Settings` Set `Enable Bitcode` to `No` and remove `-fembed-bitcode-marker` flag from  `Other Linker Flags`.
@@ -36,8 +57,6 @@ Now you can succesfully build your project.
 ### Ad types
 
 AppodealAds::INTERSTITIAL
-
-AppodealAds::SKIPPABLE_VIDEO
 
 AppodealAds::BANNER
 
@@ -50,8 +69,6 @@ AppodealAds::REWARDED_VIDEO
 AppodealAds::NON_SKIPPABLE_VIDEO
 
 Ad types can be combined using "|" operator. For example AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO
-
-Note that it is better to use NON_SKIPPABLE_VIDEO or REWARDED_VIDEO, but if you are sure you want to use SKIPPABLE_VIDEO you must confirm usage by calling AppodealAds::confirm(AppodealAds::SKIPPABLE_VIDEO) before SDK initialization
 
 ### SDK initialization
 
@@ -69,8 +86,6 @@ AppodealAds::initialize(appKey, AppodealAds::BANNER | AppodealAds::INTERSTITIAL)
 Note: appKey is the key you received when you created an app.
 
 To initialize only interstitials use AppodealAds::initialize(appKey, AppodealAds::INTERSTITIAL)
-
-To initialize only skippable videos use AppodealAds::initialize(appKey, AppodealAds::SKIPPABLE_VIDEO)
 
 To initialize interstitials and videos use AppodealAds::initialize(appKey, AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO)
 
@@ -90,13 +105,9 @@ show() returns a boolean value indicating whether show call was passed to approp
 
 To display interstitial use AppodealAds::show(AppodealAds::INTERSTITIAL)
 
-To display skippable video use AppodealAds::show(AppodealAds::SKIPPABLE_VIDEO)
-
 To display rewarded video use AppodealAds::show(AppodealAds::REWARDED_VIDEO)
 
 To display non-skippable video use AppodealAds::show(AppodealAds::NON_SKIPPABLE_VIDEO)
-
-To display interstitial or video use AppodealAds::show(AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO)
 
 To display banner at the bottom of the screen use sppodeal::Show(AppodealAds::BANNER_BOTTOM)
 
@@ -161,8 +172,6 @@ AppodealAds::isLoaded(adTypes);
 ```
 To check if interstitial is loaded use AppodealAds::isLoaded(AppodealAds::INTERSTITIAL)
 
-To check if skippable video is loaded use AppodealAds::isLoaded(AppodealAds::SKIPPABLE_VIDEO)
-
 To check if rewarded video is loaded use AppodealAds::(AppodealAds::REWARDED_VIDEO)
 
 To check if non-skippable video is loaded use AppodealAds::(AppodealAds::NON_SKIPPABLE_VIDEO)
@@ -204,37 +213,6 @@ Call
 
 ```
 AppodealAds::setInterstitialCallback(this);
-````
-
-Don't forget to realize all methods.
-
-#### Setting skippable video callbacks
-
-Include skippable video callbacks:
-
-```
-#include "Appodeal/skippablevideocallbacks.h"
-```
-Extend your class with SkippalbeVideoCallbacks:
-
-```
-class YourClassName : public SkippableVideoCallbacks
-```
-
-Add following methods to your class:
-
-```
-virtual void onSkippableVideoLoaded();
-virtual void onSkippableVideoFailedToLoad();
-virtual void onSkippableVideoShown();
-virtual void onSkippableVideoFinished();
-virtual void onSkippableVideoClosed(bool isFinished);
-```
-
-Call
-
-```
-AppodealAds::setSkippableVideoCallback(this);
 ````
 
 Don't forget to realize all methods.
@@ -341,13 +319,9 @@ You should disable automatic caching before SDK initialization using setAutoCach
 
 To cache interstitial use AppodealAds::cache(AppodealAds::INTERSTITIAL)
 
-To cache skippable video use AppodealAds::cache(AppodealAds::SKIPPABLE_VIDEO)
-
 To cache rewarded video use AppodealAds::cache(AppodealAds::REWARDED_VIDEO)
 
 To cache non-skippable video use AppodealAds::cache(AppodealAds::NON_SKIPPABLE_VIDEO)
-
-To cache interstitial and video use AppodealAds::cache(AppodealAds::INTERSTITIAL | AppodealAds::SKIPPABLE_VIDEO)
 
 #### Enabling or disabling automatic caching
 
@@ -358,8 +332,6 @@ AppodealAds::setAutoCache(adTypes, false);
 Should be used before SDK initialization
 
 To disable automatic caching for interstitials use AppodealAds::setAutoCache(AppodealAds::INTERSTITIAL, false)
-
-To disable automatic caching for skippable videos use AppodealAds::setAutoCache(AppodealAds::SKIPPABLE_VIDEO, false)
 
 To disable automatic caching for rewarded videos use AppodealAds::setAutoCache(AppodealAds::REWARDED_VIDEO, false)
 
@@ -453,20 +425,6 @@ Positive integer value.
 AppodealAds::setAge(25);
 ```
 
-Set birth date
-
-```
-AppodealAds::setBirthday("17/06/1990");
-```
-
-birthday in format "DD/MM/YYYY" or "MM/YYYY" or "YYYY"
-
-Set user email
-
-```
-AppodealAds::setEmail("hi@appodeal.com");
-```
-
 Specify gender of the user
 
 ```
@@ -475,43 +433,6 @@ AppodealAds::setGender(AppodealAds::Gender::MALE);
 
 Possible values: AppodealAds::Gender::MALE, AppodealAds::Gender::FEMALE, AppodealAds::Gender::OTHER.
 
-Set interests of the user
-
-```
-AppodealAds::setInterests("reading, games, movies, snowboarding");
-```
-
-Specify occupation of the user
-
-```
-AppodealAds::setOccupation(AppodealAds::Occupation::OCCUPATION_OTHER);
-```
-
-Possible values: AppodealAds::Occupation::WORK, AppodealAds::Occupation::UNIVERSITY, AppodealAds::Occupation::SCHOOL, AppodealAds::Occupation::OCCUPATION_OTHER
-
-Specify marital status of the user
-
-```
-AppodealAds::setRelation(AppodealAds::Relation::DATING);
-```
-
-Possible values: AppodealAds::Relation::DATING, AppodealAds::Relation::ENGAGED, AppodealAds::Relation::MARRIED, AppodealAds::Relation::SEARCHING, AppodealAds::Relation::SINGLE, AppodealAds::Relation::RELATION_OTHER
-
-Set drinking habits of the user
-
-```
-AppodealAds::setAlcohol(AppodealAds::Alcohol::ALCOHOL_POSITIVE);
-```
-
-Possible values:AppodealAds::Alcohol::ALCOHOL_NEGATIVE, AppodealAds::Alcohol::ALCOHOL_NEUTRAL, AppodealAds::Alcohol::ALCOHOL_POSITIVE.
-
-User attitude to smoking
-
-```
-AppodealAds::setSmoking(AppodealAds::Smoking::SMOKING_NEGATIVE);
-```
-
-Possible values: AppodealAds::Smoking::SMOKING_NEGATIVE, AppodealAds::Smoking::SMOKING_POSITIVE, AppodealAds::Smoking::SMOKING_NEUTRAL.
 
 ## Changelog
 

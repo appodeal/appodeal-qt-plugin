@@ -105,31 +105,6 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
             "onNonSkippableVideoClosed",
             "(Z)V",
             (void *) AppodealAndroid::onNonSkippableVideoClosed
-        },
-        {
-            "onSkippableVideoLoaded",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoLoaded
-        },
-        {
-            "onSkippableVideoFailedToLoad",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoFailedToLoad
-        },
-        {
-            "onSkippableVideoShown",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoShown
-        },
-        {
-            "onSkippableVideoFinished",
-            "()V",
-            (void *) AppodealAndroid::onSkippableVideoFinished
-        },
-        {
-            "onSkippableVideoClosed",
-            "(Z)V",
-            (void *) AppodealAndroid::onSkippableVideoClosed
         }
 
     };
@@ -141,7 +116,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
     qDebug("Got enviroment");
 
     // search for Java class which declares the native methods
-    jclass javaClass = env->FindClass(PACKAGE_NAME);
+    jclass javaClass = env->FindClass("com/appodeal/plugin/QTAppodeal");
     if (!javaClass)
        return JNI_ERR;
 

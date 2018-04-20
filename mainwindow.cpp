@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     QStringList list;
-    list << "Banner" << "Interstitial" << "Rewarded video" << "Skippable Video" << "Video or Interstitial";
+    list << "Banner" << "Interstitial" << "Rewarded video";
     ui->adType->addItems(list);
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::red);
@@ -30,23 +30,22 @@ void MainWindow::on_initializeButton_clicked()
     bool autoCache = ui->autoCache->isChecked();
 	
     AppodealAds::setAutoCache(adTypes, autoCache);
-    AppodealAds::setTesting(true);
+    AppodealAds::setTesting(false);
     AppodealAds::setLogLevel(AppodealAds::LogLevel::verbose);
+    AppodealAds::muteVideosIfCallsMuted(true);
+    AppodealAds::setChildDirectedTreatment(true);
+    AppodealAds::setTriggerOnLoadedOnPrecache(AppodealAds::INTERSTITIAL, true);
+    AppodealAds::disableNetwork("cheetah");
     AppodealAds::setAge(42);
     AppodealAds::setGender(AppodealAds::Gender::MALE);
-    AppodealAds::setOccupation(AppodealAds::Occupation::OCCUPATION_OTHER);
-    AppodealAds::setEmail("example@gmail.com");
-    AppodealAds::setInterests("jogging, football");
     AppodealAds::setCustomRule("special_user", true);
-    AppodealAds::confirm(AppodealAds::SKIPPABLE_VIDEO);
     AppodealAds::requestAndroidMPermissions();
     //AppodealAds::setNonSkippableVideoCallback(this);
     AppodealAds::setBannerCallback(this);
     AppodealAds::setInterstitialCallback(this);
     AppodealAds::setRewardedVideoCallback(this);
-    AppodealAds::setSkippableVideoCallback(this);
 
-    AppodealAds::initialize("722fb56678445f72fe2ec58b2fa436688b920835405d3ca6", adTypes);
+    AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
 
 void MainWindow::on_showButton_clicked()
@@ -57,12 +56,17 @@ void MainWindow::on_showButton_clicked()
 void MainWindow::on_isLoadedButton_clicked()
 {
     bool isLoaded = AppodealAds::isLoaded(getRealAdTypes());
+    bool canShow = AppodealAds::canShow(getRealAdTypes());
+    bool canShowPlacement = AppodealAds::canShow(getRealAdTypes(), "default");
     QMessageBox::information(this, "Loading information", isLoaded ? "Loaded" : "Not loaded", QMessageBox::Ok);
+    QMessageBox::information(this, "Can Show?", canShow ? "True" : "False", QMessageBox::Ok);
+    QMessageBox::information(this, "Can Show Default?", canShowPlacement ? "True" : "False", QMessageBox::Ok);
 }
 
 void MainWindow::on_hideButton_clicked()
 {
     AppodealAds::hide(getRealAdTypes());
+    AppodealAds::destroy(getRealAdTypes());
 }
 
 void MainWindow::on_cacheButton_clicked()
@@ -81,12 +85,6 @@ int MainWindow::getRealAdTypes(){
             break;
         case 2:
             adType = AppodealAds::REWARDED_VIDEO;
-            break;
-        case 3:
-            adType = AppodealAds::SKIPPABLE_VIDEO;
-            break;
-        case 4:
-            adType = AppodealAds::SKIPPABLE_VIDEO | AppodealAds::INTERSTITIAL;
             break;
     }
     return adType;
@@ -172,25 +170,4 @@ void MainWindow::onRewardedVideoFinished (int value, QString currency){
 void MainWindow::onRewardedVideoClosed (bool isFinished){
     qInfo("Rewarded closed");
     QMessageBox::information(this, "Rewarded Callback", "Rewarded Closed", QMessageBox::Ok);
-}
-
-void MainWindow::onSkippableVideoLoaded(){
-    qInfo("Skippable loaded");
-    QMessageBox::information(this, "Skippable Callback", "Skippable Loaded", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoFailedToLoad(){
-    qInfo("Skippable failed to load");
-    QMessageBox::information(this, "Skippable Callback", "Skippable Failed to load", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoShown(){
-    qInfo("Skippable shown");
-    QMessageBox::information(this, "Skippable Callback", "Skippable Shown", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoFinished(){
-    qInfo("Skippable finished");
-    QMessageBox::information(this, "Skippable Callback", "Skippable Finished", QMessageBox::Ok);
-}
-void MainWindow::onSkippableVideoClosed(bool isFinished){
-    qInfo("Skippable closed");
-    QMessageBox::information(this, "Skippable Callback", "Skippable Closed", QMessageBox::Ok);
 }

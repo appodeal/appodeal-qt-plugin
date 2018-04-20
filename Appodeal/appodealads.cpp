@@ -8,8 +8,7 @@ AppodealInterface* AppodealAds::appodeal = 0;
 
 #if (__ANDROID_API__ >= 9)
 const int AppodealAds::NONE                = 0;
-const int AppodealAds::INTERSTITIAL        = 1;
-const int AppodealAds::SKIPPABLE_VIDEO     = 2;
+const int AppodealAds::INTERSTITIAL        = 3;
 const int AppodealAds::BANNER              = 4;
 const int AppodealAds::BANNER_BOTTOM       = 8;
 const int AppodealAds::BANNER_TOP          = 16;
@@ -17,8 +16,7 @@ const int AppodealAds::REWARDED_VIDEO      = 128;
 const int AppodealAds::NON_SKIPPABLE_VIDEO = 128;
 #else
 const int AppodealAds::NONE                = 0;
-const int AppodealAds::INTERSTITIAL        = 1;
-const int AppodealAds::SKIPPABLE_VIDEO     = 2;
+const int AppodealAds::INTERSTITIAL        = 3;
 const int AppodealAds::BANNER              = 4;
 const int AppodealAds::BANNER_BOTTOM       = 8;
 const int AppodealAds::BANNER_TOP          = 16;
@@ -72,14 +70,11 @@ void AppodealAds::cache (const int &adType){
 void AppodealAds::setAutoCache (const int &adType, const bool &flag){
     AppodealAds::getInstance()->setAutoCache(adType, flag);
 }
-void AppodealAds::setOnLoadedTriggerBoth (const int &adType, const bool &flag){
-    AppodealAds::getInstance()->setOnLoadedTriggerBoth(adType, flag);
+void AppodealAds::setTriggerOnLoadedOnPrecache (const int &adType, const bool &flag){
+    AppodealAds::getInstance()->setTriggerOnLoadedOnPrecache(adType, flag);
 }
 void AppodealAds::setInterstitialCallback (InterstitialCallbacks* callback){
     AppodealAds::getInstance()->setInterstitialCallback(callback);
-}
-void AppodealAds::setSkippableVideoCallback (SkippableVideoCallbacks *callbacks){
-    AppodealAds::getInstance()->setSkippableVideoCallback(callbacks);
 }
 void AppodealAds::setBannerCallback (BannerCallbacks* callbacks){
     AppodealAds::getInstance()->setBannerCallback(callbacks);
@@ -108,44 +103,28 @@ void AppodealAds::setAge (const int &age){
     AppodealAds::getInstance()->setAge(age);
 }
 
-void AppodealAds::setBirthday(const QString &bDay){
-    AppodealAds::getInstance()->setBirthday(bDay);
-}
-
-void AppodealAds::setEmail(const QString &email){
-    AppodealAds::getInstance()->setEmail(email);
-}
-
 void AppodealAds::setGender(const Gender &gender){
     AppodealAds::getInstance()->setGender(gender);
-}
-
-void AppodealAds::setInterests(const QString &interests){
-    AppodealAds::getInstance()->setInterests(interests);
-}
-
-void AppodealAds::setOccupation(const Occupation &occupation){
-    AppodealAds::getInstance()->setOccupation(occupation);
-}
-
-void AppodealAds::setRelation(const Relation &relation){
-    AppodealAds::getInstance()->setRelation(relation);
-}
-
-void AppodealAds::setAlcohol(const Alcohol &alcohol){
-    AppodealAds::getInstance()->setAlcohol(alcohol);
-}
-
-void AppodealAds::setSmoking(const Smoking &smoking){
-    AppodealAds::getInstance()->setSmoking(smoking);
 }
 
 void AppodealAds::setUserId(const QString &userId){
     AppodealAds::getInstance()->setUserId(userId);
 }
 
-void AppodealAds::confirm(const int &adType){
-    AppodealAds::getInstance()->confirm(adType);
+bool AppodealAds::canShow(const int &adType){
+    return AppodealAds::getInstance()->canShow(adType);
+}
+
+bool AppodealAds::canShow(const int &adType, const QString &placement){
+    return AppodealAds::getInstance()->canShow(adType, placement);
+}
+
+void AppodealAds::setChildDirectedTreatment(const bool &flag){
+    AppodealAds::getInstance()->setChildDirectedTreatment(flag);
+}
+
+void AppodealAds::muteVideosIfCallsMuted(const bool &flag){
+    AppodealAds::getInstance()->muteVideosIfCallsMuted(flag);
 }
 
 void AppodealAds::disableWriteExternalStoragePermissionCheck(){
@@ -182,4 +161,8 @@ void AppodealAds::setCustomRule(const QString &name, const bool &value){
 
 void AppodealAds::setCustomRule(const QString &name, const QString &value){
     AppodealAds::getInstance()->setCustomRule(name, value);
+}
+
+void AppodealAds::destroy(const int &adTypes){
+    AppodealAds::getInstance()->destroy(adTypes);
 }

@@ -1,0 +1,5 @@
+include ':AppodealLib'
+include ':adcolony-gradle'
+project(':adcolony-gradle').projectDir = new File('AppodealLib/adcolony-gradle')
+include ':mmedia-gradle'
+project(':mmedia-gradle').projectDir = new File('AppodealLib/mmedia-gradle')

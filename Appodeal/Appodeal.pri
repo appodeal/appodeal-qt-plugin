@@ -16,16 +16,11 @@ HEADERS  += \
     $$PWD/appodealandroid.h \
     $$PWD/nonskippablevideocallbacks.h \
     $$PWD/signalreceiver.h \
-    $$PWD/skippablevideocallbacks.h \
     $$PWD/appodealads.h \
     $$PWD/appodealios.h
 
 android {
-    QT += androidextras
-    QT += gui-private
-	
-    DEFINES += PACKAGE_NAME=\\\"com/appodeal/test/AppodealActivity\\\"
-    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+    QT += androidextras gui-private
 }
 
 ios {
