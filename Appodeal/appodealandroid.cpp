@@ -16,8 +16,8 @@ AppodealAndroid::AppodealAndroid():m_Appodeal(0){
         m_Appodeal = new QAndroidJniObject("com/appodeal/plugin/QTAppodeal");
     }
     signalReceiver = new SignalReceiver;
-    //
 }
+
 AppodealAndroid::~AppodealAndroid(){
     if (m_Appodeal)
     {
@@ -30,6 +30,13 @@ AppodealAndroid::~AppodealAndroid(){
 
 void AppodealAndroid::initialize(const QString &appKey, const int &adType)
 {
+    QAndroidJniObject network = QAndroidJniObject::fromString("mobvista");
+    m_Appodeal->callMethod<void>("disableNetwork", "(Landroid/app/Activity;Ljava/lang/String;)V",  QtAndroid::androidActivity().object<jobject>(), network.object<jstring>());
+
+    QAndroidJniObject framework = QAndroidJniObject::fromString("qt");
+    QAndroidJniObject version = QAndroidJniObject::fromString("2.1.10");
+    m_Appodeal->callMethod<void>("setFramework", "(Ljava/lang/String;Ljava/lang/String;)V",  framework.object<jstring>(), version.object<jstring>());
+
     QAndroidJniObject appKeyS = QAndroidJniObject::fromString(appKey);
     m_Appodeal->callMethod<void>("initialize", "(Landroid/app/Activity;Ljava/lang/String;I)V",  QtAndroid::androidActivity().object<jobject>(), appKeyS.object<jstring>(), adType);
 }

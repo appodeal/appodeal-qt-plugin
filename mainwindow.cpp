@@ -44,8 +44,8 @@ void MainWindow::on_initializeButton_clicked()
     AppodealAds::setBannerCallback(this);
     AppodealAds::setInterstitialCallback(this);
     AppodealAds::setRewardedVideoCallback(this);
-    AppodealAds::initialize("4b46ef930cd37cf11da84ae4d41019abb7234d5bbce3f000", adTypes);
-    //AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
+    //AppodealAds::initialize("4b46ef930cd37cf11da84ae4d41019abb7234d5bbce3f000", adTypes); // iOS com.appodeal.testing
+    AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes); // Android com.appodeal.test
 }
 
 void MainWindow::on_showButton_clicked()
