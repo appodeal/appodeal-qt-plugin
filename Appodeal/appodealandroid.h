@@ -1,3 +1,5 @@
+#ifdef ANDROID
+
 #ifndef APPODEALANDROID_H
 #define APPODEALANDROID_H
 
@@ -84,3 +86,5 @@ private:
 };
 
 #endif // APPODEALANDROID_H
+
+#endif // ANDROID

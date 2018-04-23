@@ -40,22 +40,18 @@ ios {
     LIBS += -framework AudioToolbox
     LIBS += -framework AVFoundation
     LIBS += -framework CFNetwork
-    LIBS += -framework CoreFoundation
     LIBS += -framework CoreGraphics
     LIBS += -framework CoreImage
     LIBS += -framework CoreLocation
     LIBS += -framework CoreMedia
     LIBS += -framework CoreMotion
     LIBS += -framework CoreTelephony
-    LIBS += -framework CoreBluetooth
-    LIBS += -framework EventKit
     LIBS += -framework EventKitUI
     LIBS += -framework MediaPlayer
     LIBS += -framework MessageUI
     LIBS += -framework MobileCoreServices
     LIBS += -framework QuartzCore
     LIBS += -framework Security
-    LIBS += -framework Social
     LIBS += -framework StoreKit
     LIBS += -framework SystemConfiguration
     LIBS += -framework Twitter
@@ -63,7 +59,7 @@ ios {
     LIBS += -framework WebKit
     LIBS += -framework JavaScriptCore
     LIBS += -framework GLKit
-    LIBS += -framework SafariServices
+    LIBS += -framework ImageIO
 
     appodeal_bundle.files = $$files($$APPODEAL_SDK_DIR/Resources/*)
     QMAKE_BUNDLE_DATA += appodeal_bundle

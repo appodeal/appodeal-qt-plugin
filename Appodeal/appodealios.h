@@ -26,11 +26,12 @@ public:
     virtual void setInterstitialCallback (InterstitialCallbacks* callback);
     virtual void setBannerCallback (BannerCallbacks* callbacks);
     virtual void setRewardedVideoCallback (RewardedVideoCallbacks* callbacks);
+    virtual void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks);
     virtual void disableNetwork(const QString &network);
     virtual void disableNetwork(const QString &network, const int &adType);
     virtual void disableLocationPermissionCheck();
     virtual void trackInAppPurchase (const QString &currencyCode, const int &amount);
-    virtual void setNonSkippableVideoCallback (NonSkippableVideoCallbacks *callbacks);
+
     virtual void setAge (const int &age);
     virtual void setGender(const int &gender);
     virtual void setUserId(const QString &userId);

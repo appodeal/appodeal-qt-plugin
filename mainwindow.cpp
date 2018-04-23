@@ -44,8 +44,8 @@ void MainWindow::on_initializeButton_clicked()
     AppodealAds::setBannerCallback(this);
     AppodealAds::setInterstitialCallback(this);
     AppodealAds::setRewardedVideoCallback(this);
-
-    AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
+    AppodealAds::initialize("4b46ef930cd37cf11da84ae4d41019abb7234d5bbce3f000", adTypes);
+    //AppodealAds::initialize("fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f", adTypes);
 }
 
 void MainWindow::on_showButton_clicked()
@@ -55,12 +55,12 @@ void MainWindow::on_showButton_clicked()
 
 void MainWindow::on_isLoadedButton_clicked()
 {
-    bool isLoaded = AppodealAds::isLoaded(getRealAdTypes());
+    //bool isLoaded = AppodealAds::isLoaded(getRealAdTypes());
     bool canShow = AppodealAds::canShow(getRealAdTypes());
-    bool canShowPlacement = AppodealAds::canShow(getRealAdTypes(), "default");
-    QMessageBox::information(this, "Loading information", isLoaded ? "Loaded" : "Not loaded", QMessageBox::Ok);
+    //bool canShowPlacement = AppodealAds::canShow(getRealAdTypes(), "default");
+    //QMessageBox::information(this, "Loading information", isLoaded ? "Loaded" : "Not loaded", QMessageBox::Ok);
     QMessageBox::information(this, "Can Show?", canShow ? "True" : "False", QMessageBox::Ok);
-    QMessageBox::information(this, "Can Show Default?", canShowPlacement ? "True" : "False", QMessageBox::Ok);
+    //QMessageBox::information(this, "Can Show Default?", canShowPlacement ? "True" : "False", QMessageBox::Ok);
 }
 
 void MainWindow::on_hideButton_clicked()
@@ -107,12 +107,12 @@ void MainWindow::onNonSkippableVideoFinished(){
     qInfo("Video finished");
 }
 void MainWindow::onNonSkippableVideoClosed(bool isFinished){
-    qInfo("Video closed");
+    qInfo("Video closed, is Finished:" + isFinished);
     QMessageBox::information(this, "Video Callback", "Video Closed", QMessageBox::Ok);
 }
 
 void MainWindow::onBannerLoaded(int height, bool isPrecache){
-    qInfo("Banner loaded");
+    qInfo("Banner loaded, height:" + height);
     QMessageBox::information(this, "Banner Callback", "Banner Loaded", QMessageBox::Ok);
 }
 
@@ -165,9 +165,10 @@ void MainWindow::onRewardedVideoShown (){
     QMessageBox::information(this, "Rewarded Callback", "Rewarded Shown", QMessageBox::Ok);
 }
 void MainWindow::onRewardedVideoFinished (int value, QString currency){
+    qInfo("Rewarded closed, reward:" + value);
     QMessageBox::information(this, "Rewarded Callback", "Rewarded Finished", QMessageBox::Ok);
 }
 void MainWindow::onRewardedVideoClosed (bool isFinished){
-    qInfo("Rewarded closed");
+    qInfo("Rewarded closed, is Finished:" + isFinished);
     QMessageBox::information(this, "Rewarded Callback", "Rewarded Closed", QMessageBox::Ok);
 }

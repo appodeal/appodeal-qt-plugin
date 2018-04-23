@@ -1,3 +1,5 @@
+#ifdef ANDROID
+
 #include <QString>
 #include "appodealandroid.h"
 #include "interstitialcallbacks.h"
@@ -127,3 +129,5 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*)
     }
     return JNI_VERSION_1_6;
 }
+
+#endif

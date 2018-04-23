@@ -8,7 +8,6 @@
 #import <Appodeal/Appodeal.h>
 
 const int INTERSTITIAL          = 1;
-const int SKIPPABLE_VIDEO       = 2;
 const int BANNER                = 4;
 const int BANNER_BOTTOM         = 8;
 const int BANNER_TOP            = 16;
@@ -20,10 +19,6 @@ int nativeAdTypesForType(int adTypes) {
 
     if ((adTypes & INTERSTITIAL) > 0) {
         nativeAdTypes |= AppodealAdTypeInterstitial;
-    }
-
-    if ((adTypes & SKIPPABLE_VIDEO) > 0) {
-        nativeAdTypes |= AppodealAdTypeSkippableVideo;
     }
 
     if ((adTypes & BANNER) > 0 ||
@@ -45,14 +40,7 @@ int nativeAdTypesForType(int adTypes) {
 }
 
 int nativeShowStyleForType(int adTypes) {
-    bool isInterstitial = (adTypes & INTERSTITIAL) > 0;
-    bool isVideo = (adTypes & SKIPPABLE_VIDEO) > 0;
-
-    if (isInterstitial && isVideo) {
-        return AppodealShowStyleVideoOrInterstitial;
-    } else if (isVideo) {
-        return AppodealAdTypeSkippableVideo;
-    } else if (isInterstitial) {
+    if ((adTypes & INTERSTITIAL) > 0) {
         return AppodealShowStyleInterstitial;
     }
     
@@ -101,6 +89,17 @@ AppodealiOS::~AppodealiOS() {
     signalReceiver = 0;
 }
 
+@interface QtAppodealBannerDelegate : NSObject<AppodealBannerDelegate> { BannerCallbacks* _bannerCallbacks; }
+@property BannerCallbacks* bannerCallbacks;
+@end
+
+@implementation QtAppodealBannerDelegate
+-(void) bannerDidLoadAdIsPrecache:(BOOL)precache { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onBannerLoaded", Qt::QueuedConnection, Q_ARG(int, (int)0), Q_ARG(bool, (bool)precache)); }
+-(void) bannerDidClick { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onBannerClicked", Qt::QueuedConnection); }
+-(void) bannerDidShow { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onBannerShown", Qt::QueuedConnection); }
+-(void) bannerDidFailToLoadAd { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onBannerFailedToLoad", Qt::QueuedConnection); }
+@end
+
 @interface QtAppodealInterstitialDelegate : NSObject<AppodealInterstitialDelegate> { InterstitialCallbacks* _interstitialCallbacks; }
 @property InterstitialCallbacks* interstitialCallbacks;
 @end
@@ -111,21 +110,6 @@ AppodealiOS::~AppodealiOS() {
 -(void) interstitialDidDismiss { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onInterstitialClosed", Qt::QueuedConnection); }
 -(void) interstitialWillPresent { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onInterstitialShown", Qt::QueuedConnection); }
 -(void) interstitialDidFailToLoadAd { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onInterstitialFailedToLoad", Qt::QueuedConnection); }
-@end
-
-@interface QtAppodealSkippableVideoDelegate : NSObject<AppodealSkippableVideoDelegate> { SkippableVideoCallbacks* _skippableVideoCallbacks; }
-@property SkippableVideoCallbacks* skippableVideoCallbacks;
-@end
-
-@implementation QtAppodealSkippableVideoDelegate
-
--(void) skippableVideoDidLoadAd { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onSkippableVideoLoaded", Qt::QueuedConnection); }
--(void) skippableVideoDidFailToLoadAd { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onSkippableVideoFailedToLoad", Qt::QueuedConnection); }
--(void) skippableVideoDidPresent { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onSkippableVideoShown", Qt::QueuedConnection); }
--(void) skippableVideoWillDismiss { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onSkippableVideoClosed", Qt::QueuedConnection, Q_ARG(bool, (bool)false)); }
--(void) skippableVideoDidFinish { QMetaObject::invokeMethod(AppodealiOS::signalReceiver, "onSkippableVideoFinished", Qt::QueuedConnection); }
--(void) skippableVideoDidClick { /* not supported on android */ }
-
 @end
 
 @interface QtAppodealNonSkippableVideoDelegate : NSObject<AppodealNonSkippableVideoDelegate> { NonSkippableVideoCallbacks* _nonSkippableVideoCallbacks; }
@@ -158,19 +142,13 @@ AppodealiOS::~AppodealiOS() {
 
 @end
 
-@interface QtAppodealBannerDelegate : NSObject<AppodealBannerDelegate> { BannerCallbacks* _bannerCallbacks; }
-@property BannerCallbacks* bannerCallbacks;
-@end
 
-@implementation QtAppodealBannerDelegate
-
-
-
-@end
 
 void AppodealiOS::initialize(const QString &appKey, const int &adType)
 {
-    NSLog(@"Appodeal QT Plugin v.1.0.0, iOS Initialized with appKey: %@", [NSString stringWithUTF8String:appKey.toLatin1()]);
+    NSLog(@"Appodeal QT Plugin v.2.1.10, iOS Initialized with appKey: %@", [NSString stringWithUTF8String:appKey.toLatin1()]);
+    [Appodeal setFramework:APDFrameworkQt];
+    [Appodeal setPluginVersion:@"2.1.10"];
     [Appodeal initializeWithApiKey:[NSString stringWithUTF8String:(appKey.toLatin1())] types:nativeAdTypesForType(adType)];
 }
 
@@ -184,6 +162,14 @@ bool AppodealiOS::show (const int &adType, const QString &placement) {
     return [Appodeal showAd:(AppodealShowStyle)nativeShowStyleForType(adType) forPlacement:[NSString stringWithUTF8String:(placement.toLatin1())] rootViewController:root];
 }
 
+bool AppodealiOS::canShow(const int &adType){
+    return [Appodeal canShowAd:(AppodealShowStyle)nativeShowStyleForType(adType) forPlacement:@"default"];
+}
+
+bool AppodealiOS::canShow(const int &adType, const QString &placement){
+    return [Appodeal canShowAd:(AppodealShowStyle)nativeShowStyleForType(adType) forPlacement:[NSString stringWithUTF8String:(placement.toLatin1())]];
+}
+
 void AppodealiOS::hide (const int &adType) {
     [Appodeal hideBanner];
 }
@@ -195,26 +181,18 @@ void AppodealiOS::setTesting(const bool &flag) {
 void AppodealiOS::setLogLevel (const int &level) {
     switch(level){
         case 0:
-            //[Appodeal setLogLevel:APDLogLevelVerbose];
-            [Appodeal setDebugEnabled:YES];
+            [Appodeal setLogLevel:APDLogLevelOff];
             break;
         case 1:
-            //[Appodeal setLogLevel:APDLogLevelDebug];
-            [Appodeal setDebugEnabled:YES];
+            [Appodeal setLogLevel:APDLogLevelDebug];
             break;
         case 2:
-            //[Appodeal setLogLevel:APDLogLevelInfo];
-            [Appodeal setDebugEnabled:NO];
+            [Appodeal setLogLevel:APDLogLevelInfo];
             break;
         default:
-            //[Appodeal setLogLevel:APDLogLevelOff];
-            [Appodeal setDebugEnabled:NO];
+            [Appodeal setLogLevel:APDLogLevelOff];
             break;
     }
-}
-
-void AppodealiOS::confirm(const int &adType) {
-    [Appodeal confirmUsage:(AppodealAdType)nativeAdTypesForType(adType)];
 }
 
 bool AppodealiOS::isLoaded (const int &adType) {
@@ -234,7 +212,7 @@ void AppodealiOS::setAutoCache (const int &adType, const bool &flag) {
     [Appodeal setAutocache:flag types:(AppodealAdType)nativeAdTypesForType(adType)];
 }
 
-void AppodealiOS::setOnLoadedTriggerBoth (const int &adType, const bool &flag) {
+void AppodealiOS::setTriggerOnLoadedOnPrecache (const int &adType, const bool &flag) {
     NSLog(@"setOnLoadedTriggerBoth Not Supported on Appodeal iOS SDK for ad type: %i with value %d", adType, flag);
 }
 
@@ -270,14 +248,6 @@ void AppodealiOS::setInterstitialCallback (InterstitialCallbacks* callbacks) {
     [Appodeal setInterstitialDelegate:qtAppodealInterstitialDelegate];
 }
 
-void AppodealiOS::setSkippableVideoCallback(SkippableVideoCallbacks *callbacks) {
-    signalReceiver->setSkippableVideoCallback(callbacks);
-    static QtAppodealSkippableVideoDelegate *qtSkippableVideoDelegate;
-    qtSkippableVideoDelegate = [QtAppodealSkippableVideoDelegate new];
-    qtSkippableVideoDelegate.skippableVideoCallbacks = callbacks;
-    [Appodeal setSkippableVideoDelegate:qtSkippableVideoDelegate];
-}
-
 void AppodealiOS::setBannerCallback (BannerCallbacks* callbacks) {
     signalReceiver->setBannerCallback(callbacks);
     static QtAppodealBannerDelegate *qtBannerDelegate;
@@ -301,47 +271,25 @@ void AppodealiOS::setNonSkippableVideoCallback (NonSkippableVideoCallbacks *call
     qtNonSkippableVideoDelegate.nonSkippableVideoCallbacks = callbacks;
     [Appodeal setNonSkippableVideoDelegate:qtNonSkippableVideoDelegate];
 }
+            
+void AppodealiOS::setChildDirectedTreatment(const bool &flag) {
+    NSLog(@"setChildDirectedTreatment Not Supported on Appodeal iOS SDK");
+}
 
+void AppodealiOS::muteVideosIfCallsMuted(const bool &flag) {
+    NSLog(@"muteVideosIfCallsMuted Not Supported on Appodeal iOS SDK");
+}
+            
+void AppodealiOS::destroy(const int &adTypes){
+    NSLog(@"destroy Not Supported on Appodeal iOS SDK");
+}
 
 void AppodealiOS::setAge (const int &age) {
     [Appodeal setUserAge:age];
 }
 
-void AppodealiOS::setBirthday(const QString &bDay) {
-    NSDate *date = [DateFormatter() dateFromString:[NSString stringWithUTF8String:(bDay.toLatin1())]];
-    if (date) {
-        [Appodeal setUserBirthday:date];
-    }
-}
-
-void AppodealiOS::setEmail(const QString &email) {
-    [Appodeal setUserEmail:[NSString stringWithUTF8String:(email.toLatin1())]];
-}
-
 void AppodealiOS::setGender(const int &gender) {
     [Appodeal setUserGender:(AppodealUserGender)gender];
-}
-
-void AppodealiOS::setInterests(const QString &interests) {
-     [Appodeal setUserInterests:[NSString stringWithUTF8String:(interests.toLatin1())]];
-}
-
-void AppodealiOS::setOccupation(const int &occupation) {
-    [Appodeal setUserOccupation:(AppodealUserOccupation)occupation];
-}
-
-void AppodealiOS::setRelation(const int &relation) {
-    [Appodeal setUserRelationship:(AppodealUserRelationship)relation];
-}
-
-void AppodealiOS::setAlcohol(const int &alcohol) {
-    const int &alco = alcohol + 1;
-    [Appodeal setUserAlcoholAttitude:(AppodealUserAlcoholAttitude)alco];
-}
-
-void AppodealiOS::setSmoking(const int &smoking) {
-    const int &smoke = smoking + 1;
-    [Appodeal setUserSmokingAttitude:(AppodealUserSmokingAttitude)smoke];
 }
 
 void AppodealiOS::setUserId(const QString &userId) {
@@ -377,16 +325,10 @@ void AppodealiOS::setCustomRule(const QString &name, const int &value) {
 }
 
 void AppodealiOS::setCustomRule(const QString &name, const bool &value) {
-    NSString *ValueFromBOOL;
-    if(value) {
-        ValueFromBOOL = @"YES";
-    } else {
-        ValueFromBOOL = @"NO";
-    }
-
-    NSDictionary *tempDictionary = @{[NSString stringWithUTF8String:(name.toLatin1())]: ValueFromBOOL};
-    NSDictionary *dict =  [NSDictionary dictionaryWithDictionary:tempDictionary];
-    [Appodeal setCustomRule:dict];
+    NSString * key = [NSString stringWithUTF8String:(name.toLatin1())];
+    NSNumber * valueNum = [NSNumber numberWithBool:value];
+    NSDictionary * objCRule = key ? @{} : @{key : valueNum};
+    [Appodeal setCustomRule:objCRule];
 }
 
 void AppodealiOS::setCustomRule(const QString &name, const QString &value) {
